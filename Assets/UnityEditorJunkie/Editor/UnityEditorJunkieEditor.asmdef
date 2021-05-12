@@ -1,0 +1,16 @@
+{
+    "name": "UnityEditorJunkieEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6b2fd7a14e497744e80d8c7ba14bc180"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

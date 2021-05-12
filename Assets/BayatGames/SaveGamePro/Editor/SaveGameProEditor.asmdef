@@ -1,0 +1,16 @@
+{
+    "name": "SaveGameProEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:dcceff2adc08a7349b8c3a102f54442f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

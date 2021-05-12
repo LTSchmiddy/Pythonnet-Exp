@@ -1,0 +1,16 @@
+{
+    "name": "GameKit2D-Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f53b4e1e66406044489246971000ae2c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

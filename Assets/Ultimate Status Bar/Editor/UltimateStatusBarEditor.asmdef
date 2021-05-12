@@ -1,0 +1,16 @@
+{
+    "name": "UltimateStatusBarEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:128494cbf5d6e44469979e348e459b5b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

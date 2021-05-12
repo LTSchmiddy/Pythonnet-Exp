@@ -8,4 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Local/root.unity
     guid: 1f8917240949e5d4bb645e002b6a2be5
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 9ebb02d31007c014c894fe869cafacff,
+      type: 2}

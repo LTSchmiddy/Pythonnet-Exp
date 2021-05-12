@@ -1,0 +1,16 @@
+{
+    "name": "InAudioEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:561c67d0f3695f0448c3ca86b4f98b2b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
