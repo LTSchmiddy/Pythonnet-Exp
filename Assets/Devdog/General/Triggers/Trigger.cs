@@ -122,6 +122,10 @@ namespace Devdog.General
             }
         }
 
+        public override bool CanUse(Player player) {
+            return base.CanUse(player);
+        }
+
         public override bool Use(Player player)
         {
             if (CanUse(player) == false)
