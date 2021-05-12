@@ -139,8 +139,11 @@ namespace Devdog.General
                 {
                     types.AddRange(assembly.GetTypes());
                 }
-                catch (Exception e)
-                {
+                catch (ReflectionTypeLoadException e) {
+                    DevdogLogger.Log(e.Message);
+                    DevdogLogger.Log(e.Types.ToString());
+                }
+                catch (Exception e) {
                     DevdogLogger.LogError(e.Message);
                 }
             }

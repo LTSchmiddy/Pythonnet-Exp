@@ -16,7 +16,7 @@ namespace Devdog.General.ThirdParty.FullSerializer.Internal.DirectConverters {
 
             result += SerializeMember(serialized, null, "time", model.time);
             result += SerializeMember(serialized, null, "value", model.value);
-            result += SerializeMember(serialized, null, "tangentMode", model.tangentMode);
+            // result += SerializeMember(serialized, null, "tangentMode", model.tangentMode);
             result += SerializeMember(serialized, null, "inTangent", model.inTangent);
             result += SerializeMember(serialized, null, "outTangent", model.outTangent);
 
@@ -34,9 +34,9 @@ namespace Devdog.General.ThirdParty.FullSerializer.Internal.DirectConverters {
             result += DeserializeMember(data, null, "value", out t1);
             model.value = t1;
 
-            var t2 = model.tangentMode;
-            result += DeserializeMember(data, null, "tangentMode", out t2);
-            model.tangentMode = t2;
+            // var t2 = model.tangentMode;
+            // result += DeserializeMember(data, null, "tangentMode", out t2);
+            // model.tangentMode = t2;
 
             var t3 = model.inTangent;
             result += DeserializeMember(data, null, "inTangent", out t3);

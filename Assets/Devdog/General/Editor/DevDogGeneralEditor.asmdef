@@ -1,0 +1,16 @@
+{
+    "name": "DevDogGeneralEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0c782e790fd6c53429e587a178acb1a4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
