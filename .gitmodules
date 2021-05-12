@@ -1,3 +1,6 @@
 [submodule "Assets/TiledCS"]
 	path = Assets/TiledCS
 	url = https://github.com/TheBoneJarmer/TiledCS
+[submodule "Assets/DearIMGUI"]
+	path = Assets/DearIMGUI
+	url = https://github.com/realgamessoftware/dear-imgui-unity.git
