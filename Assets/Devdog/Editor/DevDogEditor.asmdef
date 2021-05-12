@@ -1,5 +1,5 @@
 {
-    "name": "DevDogGeneralEditor",
+    "name": "DevDogEditor",
     "rootNamespace": "",
     "references": [
         "GUID:0c782e790fd6c53429e587a178acb1a4"
