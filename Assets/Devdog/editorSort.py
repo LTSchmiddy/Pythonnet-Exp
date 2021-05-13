@@ -2,8 +2,8 @@ import os, sys, shutil
 
 from pathlib import Path
 
-START_DIR = Path("./InventoryPro/Scripts")
-OUT_DIR = Path("./Editor/InventoryPro")
+START_DIR = Path("./QuestSystemPro/Scripts")
+OUT_DIR = Path("./Editor/QuestSystemPro")
 
 def construct_dir(read_path: Path, write_path: Path, in_editor_folder: bool):
     dirs = os.listdir(read_path)

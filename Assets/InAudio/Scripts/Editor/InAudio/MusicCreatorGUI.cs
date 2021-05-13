@@ -16,6 +16,13 @@ namespace InAudioSystem.InAudioEditor
 
         }
 
+        public MusicCreatorGUI(InAudioBaseWindow window)
+            : base(window)
+        {
+            this.window = window;
+
+        }
+
         private int leftWidth;
         private int height;
 

@@ -57,7 +57,9 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0"
+    "com.unity.modules.xr": "1.0.0",
+    "com.sjai013.abilitysystem": "https://github.com/sjai013/unity-gameplay-ability-system.git#upm",
+    "com.johannesmp.unityscenereference": "1.1.1"
   },
   "scopedRegistries": [
     {
@@ -65,6 +67,7 @@
       "url": "https://package.openupm.com",
       "scopes": [
         "com.coffee.upm-git-extension",
+        "com.johannesmp.unityscenereference",
         "com.openupm"
       ]
     }

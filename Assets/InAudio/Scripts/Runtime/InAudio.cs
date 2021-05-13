@@ -22,6 +22,7 @@ public class InAudio : MonoBehaviour
     /// The active listener in the scene. Some features will not work if not set, like the spline system.
     /// </summary>
     public AudioListener activeAudioListener;
+    public bool dontDestroyOnLoad = false;
 
     public static AudioListener ActiveListener
     {
@@ -1284,7 +1285,10 @@ public class InAudio : MonoBehaviour
         {
             Music = InAudioInstanceFinder.MusicPlayer;
 
-            DontDestroyOnLoad(transform.gameObject);
+            if (dontDestroyOnLoad) {
+                DontDestroyOnLoad(transform.gameObject);
+            }
+            
 
 
             _inAudioEventWorker = GetComponentInChildren<InAudioEventWorker>();

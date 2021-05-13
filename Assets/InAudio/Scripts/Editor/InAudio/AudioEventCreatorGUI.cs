@@ -17,6 +17,11 @@ namespace InAudioSystem.InAudioEditor
         {
         }
 
+        public AudioEventCreatorGUI(InAudioBaseWindow window)
+            : base(window)
+        {
+        }
+
         private int leftWidth;
         private int height;
 
