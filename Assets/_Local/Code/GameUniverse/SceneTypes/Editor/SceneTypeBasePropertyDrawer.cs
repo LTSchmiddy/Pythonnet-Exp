@@ -11,9 +11,9 @@ using GameUniverse.SceneTypes;
 namespace GameUniverseEditor {
 
 
-    [CustomPropertyDrawer(typeof(SceneTypeBase))]
+    [CustomPropertyDrawer(typeof(SceneTypeBase), true)]
     public class SceneTypeBasePropertyDrawer : SceneReferencePropertyDrawer {
-
+        
     }
 }
 

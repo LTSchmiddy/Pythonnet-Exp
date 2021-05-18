@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8760924715729321782}
   - component: {fileID: 3100773212950003138}
+  - component: {fileID: 4287758651109041796}
   m_Layer: 0
   m_Name: GlobalManager
   m_TagString: Untagged
@@ -46,9 +47,25 @@ MonoBehaviour:
   dB: {fileID: 11400000, guid: 7bc6e0e7d68b062459e1b1edc5a7fa5b, type: 2}
   inGameDataScene:
     sceneAsset: {fileID: 102900000, guid: 7061c40aba2936c488f24bf4022506b4, type: 3}
-    scenePath: Assets/_LOCAL/in-game-data.unity
-    loadAsync: 0
+    scenePath: Assets/_LOCAL/CoreScenes/in-game-data.unity
   inAudioScene:
     sceneAsset: {fileID: 102900000, guid: 1614a2ea593b486459e3e3786334cf16, type: 3}
     scenePath: Assets/InAudio/InAudioScene.unity
-    loadAsync: 0
+  mainMenuScene:
+    sceneAsset: {fileID: 0}
+    scenePath: 
+--- !u!114 &4287758651109041796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6691472104911471518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1788f6907c3781a41a5d4c687ac554d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  script:
+    moduleAsset: {fileID: 102900000, guid: 223a7048b83bf974ba3435f4927b025a, type: 3}
+    modulePath: Assets/_LOCAL/Code/GameUI/pyGUI.py

@@ -12,8 +12,14 @@ EditorBuildSettings:
     path: Assets/InAudio/InAudioScene.unity
     guid: 1614a2ea593b486459e3e3786334cf16
   - enabled: 1
-    path: Assets/_LOCAL/in-game-data.unity
+    path: Assets/_LOCAL/CoreScenes/in-game-data.unity
     guid: 7061c40aba2936c488f24bf4022506b4
+  - enabled: 1
+    path: 
+    guid: 40a97e15616370f429c9abfe3369723f
+  - enabled: 1
+    path: Assets/_LOCAL/MapScenes/Test Scene.unity
+    guid: f8dcc20d183f3754e992bba8966d39ad
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9ebb02d31007c014c894fe869cafacff,
       type: 2}

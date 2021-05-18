@@ -4,12 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 using GameUniverse.SceneTypes;
+using LoadSave;
+using GameMap;
 
 namespace GameUniverse {
     public class GlobalManager : MonoBehaviour
     {
         public const string GLOBAL_MANAGER_PREFAB_PATH = "_LOCAL/GlobalManager";
-        
+
+        public static GameObject PrefabGO {
+            get => Resources.Load<GameObject>(GLOBAL_MANAGER_PREFAB_PATH);
+        }
+        public static GlobalManager Prefab {
+            get => PrefabGO.GetComponent<GlobalManager>();
+        }
 
         // Static values:
         private static GlobalManager _instance;
@@ -17,17 +25,17 @@ namespace GameUniverse {
         
         // Properties:
         public GameDB dB;
-
+        public MapData mapData;
+        public LoadSaveManager loadSaveManager;
         public DataScene inGameDataScene;
         public DataScene inAudioScene;
+        public DataScene mainMenuScene;
 
-
-        // static GameManager() {
-
-        // }
+        
 
         // This serves as a sort of... entry point for the game.
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        // [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
         static void GameInit() {
             if (Instance != null) { 
                 // Manager was already loaded. Why are we importing this?
@@ -37,27 +45,25 @@ namespace GameUniverse {
             Debug.Log("Loading GameManager Script...");
 
             // Load the Python Runtime:
-            PythonEngine.PythonManager.Initialize();
+            // PythonEngine.PythonManager.Initialize();
+            PythonEngine.PythonManager.Reinitialize();
 
             // Create Manager Object:
-            Instance = GameObject.Instantiate(Resources.Load<GameObject>(GLOBAL_MANAGER_PREFAB_PATH)).GetComponent<GlobalManager>();
+            Instance = GameObject.Instantiate(PrefabGO).GetComponent<GlobalManager>();
             DontDestroyOnLoad(Instance.gameObject);
             Instance.InstanceInit();
         }
-
-        public static bool IsSceneLoaded(SceneReference sceneRef) {
-            return SceneManager.GetSceneByPath(sceneRef.ScenePath).isLoaded;
-        }
-
         protected void InstanceInit() {
-            if (!inAudioScene.isLoaded){
-                new LoadSceneParameters();
-                
-                inAudioScene.Load();
-            }
-            
+            loadSaveManager = ScriptableObject.Instantiate<LoadSaveManager>(LoadSaveManager.Prefab);
+            mapData = ScriptableObject.Instantiate<MapData>(MapData.Prefab);
         }
 
-        // Start is called before the first frame update
+        void Start() {
+            if (!inAudioScene.isLoaded) {                
+                inAudioScene.LoadSync();
+            }
+        }
+
+      // Start is called before the first frame update
     }
-}
+} 

@@ -21,10 +21,14 @@ namespace GameUniverse.SceneTypes {
     public class DataScene : SceneTypeBase {
         public static LoadSceneParameters DATA_SCENE_MODE = new LoadSceneParameters(LoadSceneMode.Additive);
 
-        public bool loadAsync = false;
+        // public bool loadAsync = false;
 
-        public AsyncOperation Load() {
+        public AsyncOperation LoadAsync() {
             return LoadAsync(DATA_SCENE_MODE);
+        }
+
+        public Scene LoadSync() {
+            return LoadSync(DATA_SCENE_MODE);
         }
     }
 }

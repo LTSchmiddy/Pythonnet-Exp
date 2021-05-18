@@ -32,7 +32,8 @@ namespace BayatGames.SaveGamePro.Serialization.Types
 		public override void Write ( object value, ISaveGameWriter writer )
 		{
 			PythonEngine.ScriptTypes.PythonClassInstance pythonClassInstance = ( PythonEngine.ScriptTypes.PythonClassInstance )value;
-			writer.WriteProperty ( "modulePath", pythonClassInstance.modulePath );
+			writer.WriteProperty ( "moduleRef", pythonClassInstance.moduleRef.ModulePath );
+			// writer.WriteProperty ( "moduleRef", pythonClassInstance.moduleRef );
 			writer.WriteProperty ( "className", pythonClassInstance.className );
 			writer.WriteProperty ( "instance", pythonClassInstance.instance );
 		}
@@ -60,8 +61,9 @@ namespace BayatGames.SaveGamePro.Serialization.Types
 			{
 				switch ( property )
 				{
-					case "modulePath":
-						pythonClassInstance.modulePath = reader.ReadProperty<System.String> ();
+					case "moduleRef":
+						pythonClassInstance.moduleRef.ModulePath = reader.ReadProperty<System.String> ();
+						// pythonClassInstance.moduleRef = reader.ReadProperty<System.String> ();
 						break;
 					case "className":
 						pythonClassInstance.className = reader.ReadProperty<System.String> ();

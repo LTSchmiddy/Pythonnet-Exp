@@ -36,17 +36,23 @@ namespace GameUniverse.SceneTypes {
             }
         }
 
-        public Scene LoadSync(LoadSceneParameters mode) {
+        public virtual Scene LoadSync(LoadSceneParameters mode) {
             return SceneManager.LoadScene(ScenePath, mode);
         }
 
-        public AsyncOperation LoadAsync(LoadSceneParameters mode) {
+        public virtual AsyncOperation LoadAsync(LoadSceneParameters mode) {
             return SceneManager.LoadSceneAsync(ScenePath, mode);
         }
 
-        public AsyncOperation UnloadAsync(LoadSceneParameters mode) {
+        public virtual AsyncOperation UnloadAsync() {
             return SceneManager.UnloadSceneAsync(scene);
         }
+
+        #if UNITY_EDITOR
+        public void EditorClose(bool removeScene) {
+            EditorSceneManager.CloseScene(scene, removeScene);
+        }
+        #endif
 
     }
 

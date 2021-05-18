@@ -25,7 +25,9 @@ public class AlexEditorBase<T> : Editor where T : UnityEngine.Object {
         serializedObject.ApplyModifiedProperties();
     }
 
-    public virtual void OnInspectorGUI_Easy() {}
+    public virtual void OnInspectorGUI_Easy() {
+        DrawDefaultInspector();
+    }
 
     public virtual void OnInspectorGUI_Base() {
         base.OnInspectorGUI();
