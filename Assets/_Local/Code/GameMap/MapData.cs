@@ -9,7 +9,7 @@ using UnityEditor;
 #endif
 
 namespace GameMap {
-    [CreateAssetMenu(menuName="_LOCAL/WorldMap/MapData Object", fileName="MapDataObject", order=0)]
+    [CreateAssetMenu(menuName="_LOCAL/WorldMap/MapData Object", fileName="MapDataObject", order=2)]
     public class MapData : ScriptableObject
     {
         public const string GLOBAL_MAPDATA_PREFAB_PATH = "_LOCAL/MapDataObject";

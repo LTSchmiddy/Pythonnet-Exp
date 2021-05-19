@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4c704fa168ee1409a1ff042c55c758, type: 3}
   m_Name: Test Room
   m_EditorClassIdentifier: 
-  displayName: 
-  scene:
-    sceneAsset: {fileID: 0}
-    scenePath: 
-  dimensions: {x: 0, y: 0}
+  displayName: Test Room
+  roomScene:
+    sceneAsset: {fileID: 102900000, guid: b9d15918d3592ba409efd7ced8680191, type: 3}
+    scenePath: Assets/_LOCAL/MapScenes/Test Room.unity
+  dimensions: {x: 4, y: 3}
+  gridData: xxxx;oxxo;xxxx;
