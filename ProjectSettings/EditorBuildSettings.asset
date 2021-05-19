@@ -18,8 +18,11 @@ EditorBuildSettings:
     path: 
     guid: 40a97e15616370f429c9abfe3369723f
   - enabled: 1
-    path: Assets/_LOCAL/MapScenes/Test Scene.unity
+    path: 
     guid: f8dcc20d183f3754e992bba8966d39ad
+  - enabled: 1
+    path: Assets/_LOCAL/MapScenes/Test Room.unity
+    guid: b9d15918d3592ba409efd7ced8680191
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9ebb02d31007c014c894fe869cafacff,
       type: 2}

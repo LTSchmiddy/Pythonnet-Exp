@@ -57,25 +57,10 @@ namespace PythonEngineEditor {
             
             debugStubGen = EditorGUILayout.Toggle("Debug Stub Gen", debugStubGen);
             if (GUILayout.Button("Run Stub Generation")) {
-                Generate_Stubs();
+                PythonEditorUtilities.UpdateStubs();
             }
 
             // AlexEditorBase<PythonToolsWindow>.QuickSerializedPropertyField(this, "GeneratedNamespaces", true);
-        }
-
-        void Generate_Stubs() {
-            PyScope genScope = Py.CreateScope();
-            PyObject stubGenModule = genScope.Import("unity_pythonnet_stubgen");
-            
-            genScope.Exec("import clr");
-
-            foreach (string i in NamespacesToGenerate) {
-                genScope.Exec("clr.AddReference('" + i + "')");
-                genScope.Exec("from " + i + " import *");
-            }
-            stubGenModule.InvokeMethod("run_stub_gen", NamespacesToGenerate.ToArray().ToPython(), debugStubGen.ToPython());
-
-            genScope.Dispose();
         }
     }
 }
