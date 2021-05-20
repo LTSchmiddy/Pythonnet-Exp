@@ -2,6 +2,7 @@ using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 using Python.Runtime;
@@ -28,9 +29,8 @@ namespace PythonEngine {
             get => Python.Runtime.PythonEngine.IsInitialized;
         }
 
-        public static PyObject Pickle { get => pickle; private set => pickle = value; }
-
         private static PyObject pickle;
+        public static PyObject Pickle { get => pickle; private set => pickle = value; }
 
         // [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Initialize() {
@@ -46,8 +46,8 @@ namespace PythonEngine {
             Scope = Py.CreateScope();
             using (Py.GIL()) {
                 Scope.Import("unity_py_loader");
-                Scope.Import("unity_pickler");
-                Pickle = Scope.Get("unity_pickler");    
+
+                Pickle = GetModule("unity_pickler"); 
             }
         }
 
@@ -62,12 +62,35 @@ namespace PythonEngine {
             Scope = null;
         }
 
+        public static string GetQualifiedModuleName(string modulePath) {
+            string retVal = modulePath;
+            retVal = retVal.Substring(0, retVal.Length - Path.GetExtension(retVal).Length);
+            
+            if (retVal.EndsWith("__init__")){
+                retVal = Path.GetDirectoryName(retVal);
+            }
+            
+            // return retVal.Replace("\\", "/").Replace("/", ".");
+            retVal = retVal.Replace("\\", "/").Replace("/", ".").Substring("Assets.".Length);
+            return retVal;
+        }
+        
+
 #if UNITY_EDITOR
         [MenuItem("Python/Reload Python")]
 #endif
         public static void Reinitialize() {
             Uninitialize();
             Initialize();
+        }
+
+        
+        // Python Code Access:
+        public static PyObject GetModule(string moduleName) {
+            using (Py.GIL()) {
+                Scope.Import(moduleName);
+                return Scope.Get(moduleName);
+            }
         }
 
         public static PyObject CreateInstance(string modulePath, string className, params PyObject[] args) {
@@ -81,10 +104,11 @@ namespace PythonEngine {
                 PyObject module = scope.Get(modulePath);
 
                 return module.InvokeMethod(className, args);
-
             }
         }
 
+
+        // Python Serialization Methods:
         public static byte[] PickleData(PyObject obj) {
             using (Py.GIL()) {
                 return Pickle.InvokeMethod("dumps", obj).As<byte[]>();

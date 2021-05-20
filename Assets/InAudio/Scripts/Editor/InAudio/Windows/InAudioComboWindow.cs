@@ -14,6 +14,9 @@ namespace InAudioSystem.InAudioEditor
 {
     public class InAudioComboWindow : InAudioBaseWindow
     {
+
+        private static Color SELECTED_WINDOW_COLOR = new Color(0.2f, 0.2f, 0.2f);
+
         public enum InAudioWindowMode {
             Audio,
             Music,
@@ -42,6 +45,8 @@ namespace InAudioSystem.InAudioEditor
 
         private AudioBankCreatorGUI bankGUI;
         private IntegrityGUI integrityGUI;
+
+        // GUIStyle selectedWindowStyle = new GUIStyle();
 
 
         //Methods:
@@ -117,8 +122,8 @@ namespace InAudioSystem.InAudioEditor
         }
 
         private void OnGUI() {
-
-            CurrentWindowMode = (InAudioWindowMode)EditorGUILayout.EnumPopup(CurrentWindowMode);
+            DrawWindowSelector();
+            // CurrentWindowMode = (InAudioWindowMode)EditorGUILayout.EnumPopup(CurrentWindowMode);
             switch (CurrentWindowMode) {
                 case InAudioWindowMode.Audio:
                     DrawAudioGUI();
@@ -137,6 +142,24 @@ namespace InAudioSystem.InAudioEditor
                     break;
 
             }
+        }
+
+        void DrawWindowSelector(){            
+            EditorGUILayout.BeginHorizontal();
+            foreach (InAudioWindowMode i in Enum.GetValues(typeof(InAudioWindowMode))) {
+                Color oldColor = GUI.backgroundColor;
+                
+                if (CurrentWindowMode == i){
+                    GUI.backgroundColor = SELECTED_WINDOW_COLOR;
+                }
+
+                if (GUILayout.Button(i.ToString())) {
+                    CurrentWindowMode = i;
+                }
+                
+                GUI.backgroundColor = oldColor;
+            }
+            EditorGUILayout.EndHorizontal();
         }
 
         #region AudioMethods

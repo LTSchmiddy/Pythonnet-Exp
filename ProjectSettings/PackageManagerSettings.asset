@@ -33,6 +33,13 @@ MonoBehaviour:
     - com.openupm
     m_IsDefault: 0
     m_Capabilities: 0
+  - m_Id: scoped:UniGame
+    m_Name: UniGame
+    m_Url: http://packages.unigame.pro:4873
+    m_Scopes:
+    - com.unigame
+    m_IsDefault: 0
+    m_Capabilities: 0
   m_UserSelectedRegistryName: 
   m_UserAddingNewScopedRegistry: 0
   m_RegistryInfoDraft:

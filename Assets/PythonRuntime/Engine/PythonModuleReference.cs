@@ -14,14 +14,14 @@ using UnityEditor.VersionControl;
 namespace PythonEngine {
     [Serializable]
     public class PythonModuleReference : ISerializationCallbackReceiver {
+    [SerializeField] private PythonFile pythonFile;
 #if UNITY_EDITOR
         // What we use in editor to select the scene
-        [SerializeField] private Object moduleAsset;
         private bool IsValidSceneAsset {
             get {
-                if (!moduleAsset) return false;
-                return true;
-                // return moduleAsset is TextAsset;
+                if (!pythonFile) return false;
+                return pythonFile is PythonFile;
+                
             }
         }
 #endif
@@ -39,13 +39,13 @@ namespace PythonEngine {
 #else
             // At runtime we rely on the stored path value which we assume was serialized correctly at build time.
             // See OnBeforeSerialize and OnAfterDeserialize
-            return scenePath;
+            return modulePath;
 #endif
             }
             set {
                 modulePath = value;
 #if UNITY_EDITOR
-                moduleAsset = GetModuleAssetFromPath();
+                pythonFile = GetModuleAssetFromPath();
 #endif
             }
         }
@@ -94,19 +94,22 @@ namespace PythonEngine {
 
 
 #if UNITY_EDITOR
-        private SceneAsset GetModuleAssetFromPath() {
-            return string.IsNullOrEmpty(modulePath) ? null : AssetDatabase.LoadAssetAtPath<SceneAsset>(modulePath);
+        private PythonFile GetModuleAssetFromPath() {
+            // This is preventing me from being able to set the Python Script to null.
+            // However, IDK if it's important for anything else, so I'll just leave it commented out for now.
+            // return string.IsNullOrEmpty(moduleName) ? null : AssetDatabase.LoadAssetAtPath<PythonFile>(moduleName);
+            return null;
         }
 
         private string GetModulePathFromAsset() {
-            return moduleAsset == null ? string.Empty : AssetDatabase.GetAssetPath(moduleAsset);
+            return pythonFile == null ? string.Empty : AssetDatabase.GetAssetPath(pythonFile);
         }
 
         private void HandleBeforeSerialize() {
             // Asset is invalid but have Path to try and recover from
             if (IsValidSceneAsset == false && string.IsNullOrEmpty(modulePath) == false) {
-                moduleAsset = GetModuleAssetFromPath();
-                if (moduleAsset == null) modulePath = string.Empty;
+                pythonFile = GetModuleAssetFromPath();
+                if (pythonFile == null) modulePath = string.Empty;
 
                 EditorSceneManager.MarkAllScenesDirty();
             }
@@ -126,9 +129,9 @@ namespace PythonEngine {
             // Asset is invalid but have path to try and recover from
             if (string.IsNullOrEmpty(modulePath)) return;
 
-            moduleAsset = GetModuleAssetFromPath();
+            pythonFile = GetModuleAssetFromPath();
             // No asset found, path was invalid. Make sure we don't carry over the old invalid path
-            if (!moduleAsset) modulePath = string.Empty;
+            if (!pythonFile) modulePath = string.Empty;
 
             if (!Application.isPlaying) EditorSceneManager.MarkAllScenesDirty();
 

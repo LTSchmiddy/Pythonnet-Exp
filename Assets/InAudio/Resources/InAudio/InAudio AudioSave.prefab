@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1757690171930567794}
   - component: {fileID: 3862689246745553267}
   - component: {fileID: 3542699630769237672}
+  - component: {fileID: 7783288194332079971}
+  - component: {fileID: -4445256705204621743}
   m_Layer: 0
   m_Name: InAudio AudioSave
   m_TagString: Untagged
@@ -52,7 +54,7 @@ MonoBehaviour:
   OverrideParentMixerGroup: 0
   MixerGroup: {fileID: 0}
   _children:
-  - {fileID: 0}
+  - {fileID: 7783288194332079971}
   Filtered: 0
   FoldedOut: 1
   ScrollPosition: {x: 0, y: 0}
@@ -69,4 +71,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OverrideParentBank: 0
-  BankLink: {fileID: 0}
+  BankLink: {fileID: 6561828186604280929, guid: 19a5eae815b776d409907c3dd8e79ce9,
+    type: 3}
+--- !u!114 &7783288194332079971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7595876264530820625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19242b74995c0e44a8799397a6b0059a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guid: 1805058452
+  _type: 2
+  _nodeData: {fileID: -4445256705204621743}
+  Name: Root Child
+  _parent: {fileID: 3862689246745553267}
+  OverrideParentMixerGroup: 0
+  MixerGroup: {fileID: 0}
+  _children: []
+  Filtered: 0
+  FoldedOut: 0
+  ScrollPosition: {x: 0, y: 0}
+--- !u!114 &-4445256705204621743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7595876264530820625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc14a519ae4a03499b0c9ddb2abae5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RandomVolume: 0
+  MinVolume: 1
+  MaxVolume: 1
+  RandomizeDelay: 0
+  InitialDelayMin: 0
+  InitialDelayMax: 0
+  RandomPitch: 0
+  MinPitch: 1
+  MaxPitch: 1
+  RandomBlend: 0
+  MinBlend: 1
+  MaxBlend: 1
+  Loop: 0
+  LoopInfinite: 0
+  RandomizeLoops: 0
+  MinIterations: 1
+  MaxIterations: 1
+  OverrideAttenuation: 0
+  MinDistance: 1
+  MaxDistance: 500
+  RolloffMode: 0
+  LimitInstances: 0
+  MaxInstances: 1
+  InstanceStealingTypes: 0
+  Priority: 128
+  RandomSecondsOffset: 0
+  MinSecondsOffset: 0
+  MaxSecondsOffset: 0
+  SelectedArea: 0
+  FalloffCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _clip: {fileID: 0}

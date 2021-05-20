@@ -21,6 +21,22 @@
       "dependencies": {},
       "hash": "7fb9a68132c325fe2d228ea8d9651915d1546cd9"
     },
+    "com.unigame.addressable-importer": {
+      "version": "2021.0.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.addressables": "1.17.15"
+      },
+      "url": "http://packages.unigame.pro:4873"
+    },
+    "com.unigame.gittools": {
+      "version": "2020.0.3",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "http://packages.unigame.pro:4873"
+    },
     "com.unity.2d.animation": {
       "version": "5.0.4",
       "depth": 0,
@@ -94,12 +110,14 @@
       "dependencies": {}
     },
     "com.unity.addressables": {
-      "version": "1.16.19",
-      "depth": 0,
+      "version": "1.17.15",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.scriptablebuildpipeline": "1.15.2",
+        "com.unity.scriptablebuildpipeline": "1.17.0",
         "com.unity.modules.assetbundle": "1.0.0",
+        "com.unity.modules.imageconversion": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0",
         "com.unity.modules.unitywebrequest": "1.0.0",
         "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
       },
@@ -133,17 +151,8 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.ide.rider": {
-      "version": "2.0.7",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.test-framework": "1.1.1"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.7",
+      "version": "2.0.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -227,8 +236,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.scriptablebuildpipeline": {
-      "version": "1.15.2",
-      "depth": 0,
+      "version": "1.17.0",
+      "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"

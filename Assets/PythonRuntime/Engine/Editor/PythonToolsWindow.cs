@@ -60,6 +60,10 @@ namespace PythonEngineEditor {
                 PythonEditorUtilities.UpdateStubs();
             }
 
+            if (GUILayout.Button("Build Python Code Archive")) {
+                PythonScriptsBuildHandler.BuildPythonCodeArchive("./Assets", "core.zip");
+            }
+
             // AlexEditorBase<PythonToolsWindow>.QuickSerializedPropertyField(this, "GeneratedNamespaces", true);
         }
     }

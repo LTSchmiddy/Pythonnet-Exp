@@ -44,14 +44,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioGUIData:
-    SelectedNode: 1621124841
+    SelectedNode: 1805058452
     Position: {x: 0, y: 0}
   EventGUIData:
-    SelectedNode: 157469406
+    SelectedNode: 2072615659
     Position: {x: 0, y: 0}
   MusicGUIData:
-    SelectedNode: 130693328
+    SelectedNode: 775908952
     Position: {x: 0, y: 0}
   BankGUIData:
-    SelectedNode: 328576595
+    SelectedNode: 1608435689
     Position: {x: 0, y: 0}

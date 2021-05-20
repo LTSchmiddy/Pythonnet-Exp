@@ -21,7 +21,7 @@ namespace PythonEngine.ScriptTypes {
 
         
         public void Construct() {
-                instance = PythonManager.CreateInstance(moduleRef.QualifiedModuleName, className);
+                instance = PythonManager.CreateInstance(moduleRef.ModulePath, className);
                 // instance = PythonManager.CreateInstance(moduleRef, className);
         }
     }

@@ -72,6 +72,9 @@ MonoBehaviour:
   _parent: {fileID: 4105883498211859425}
   _children: []
   _autoLoad: 0
-  _bankData: []
+  _bankData:
+  - AudioNode: {fileID: 7783288194332079971, guid: 2b23651f350d86e47aea624030fd4180,
+      type: 3}
+    MusicNode: {fileID: 0}
   FoldedOut: 1
   Filtered: 0
