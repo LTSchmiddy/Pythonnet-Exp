@@ -33,6 +33,7 @@ namespace BayatGames.SaveGamePro.Serialization.Types
 		{
 			LoadSave.SaveIdRecord saveIdRecord = ( LoadSave.SaveIdRecord )value;
 			writer.WriteProperty ( "info", saveIdRecord.info );
+			writer.WriteProperty ( "pythonInfo", saveIdRecord.pythonInfo );
 		}
 
 		/// <summary>
@@ -60,6 +61,9 @@ namespace BayatGames.SaveGamePro.Serialization.Types
 				{
 					case "info":
 						saveIdRecord.info = reader.ReadProperty<System.Collections.Generic.Dictionary<System.String, LoadSave.ISaveableInfo>> ();
+						break;
+					case "pythonInfo":
+						saveIdRecord.pythonInfo = reader.ReadProperty<System.Collections.Generic.Dictionary<System.String, PythonEngine.SavedPyBehaviourObject>> ();
 						break;
 				}
 			}

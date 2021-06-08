@@ -12,16 +12,16 @@ using GameUniverse.SceneTypes;
 namespace GameMapEditor {
 
 
-    [CustomPropertyDrawer(typeof(MapScene), true)]
-    public class MapScenePropertyDrawer : SceneTypeBasePropertyDrawer {
+    // [CustomPropertyDrawer(typeof(MapScene), true)]
+    // public class MapScenePropertyDrawer : SceneTypeBasePropertyDrawer {
 
         
 
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-        {
-            base.OnGUI(position, property, label);
+    //     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    //     {
+    //         base.OnGUI(position, property, label);
 
-        }
-    }
+    //     }
+    // }
 }
 

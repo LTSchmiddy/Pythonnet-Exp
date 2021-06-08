@@ -17,15 +17,18 @@ namespace LoadSaveEditor {
             DELETE,
         }
 
+        
+
         public override void OnInspectorGUI_Easy() {
-            base.OnInspectorGUI_Easy();
+            DrawDefaultInspector();
+
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Save Data:");
+            // EditorGUILayout.LabelField("Save Data:");
             
-            foreach(KeyValuePair<Guid, SaveIdRecord> entry in Target.data.records) {
-                DrawRecordInspector(entry.Key, entry.Value);
+            // foreach(KeyValuePair<Guid, SaveIdRecord> entry in Target.data.records) {
+            //     DrawRecordInspector(entry.Key, entry.Value);
                 
-            }
+            // }
 
         }
         

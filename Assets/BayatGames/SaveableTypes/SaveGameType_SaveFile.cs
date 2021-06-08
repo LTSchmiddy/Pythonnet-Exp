@@ -33,6 +33,7 @@ namespace BayatGames.SaveGamePro.Serialization.Types
 		{
 			LoadSave.SaveFile saveFile = ( LoadSave.SaveFile )value;
 			writer.WriteProperty ( "profileName", saveFile.profileName );
+			writer.WriteProperty ( "sceneId", saveFile.sceneId );
 			writer.WriteProperty ( "records", saveFile.records );
 		}
 
@@ -61,6 +62,9 @@ namespace BayatGames.SaveGamePro.Serialization.Types
 				{
 					case "profileName":
 						saveFile.profileName = reader.ReadProperty<System.String> ();
+						break;
+					case "sceneId":
+						saveFile.sceneId = reader.ReadProperty<System.Guid> ();
 						break;
 					case "records":
 						saveFile.records = reader.ReadProperty<System.Collections.Generic.Dictionary<System.Guid, LoadSave.SaveIdRecord>> ();

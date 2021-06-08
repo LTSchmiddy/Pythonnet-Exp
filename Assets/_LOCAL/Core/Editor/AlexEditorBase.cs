@@ -13,10 +13,18 @@ public class AlexEditorBase<T> : Editor where T : UnityEngine.Object {
 
     public Dictionary<string, SerializedProperty> MyProperties = new Dictionary<string, SerializedProperty>();
 
+    protected GUIStyle HeaderStyle {
+        get {
+            GUIStyle retVal = new GUIStyle();
+            retVal.fontStyle = FontStyle.Bold;
+            retVal.normal.textColor = Color.white;
+            return retVal;
+        }
+    }
 
 
     public virtual void OnEnable() {
-    //    //Target = (T)target;
+
     }
 
     public override void OnInspectorGUI() {
@@ -37,22 +45,33 @@ public class AlexEditorBase<T> : Editor where T : UnityEngine.Object {
     public void Text(string text, params GUILayoutOption[] options) {
         EditorGUILayout.LabelField(text, options);
     }
-    
 
-        //SerializedProperty property, GUIContent label, bool includeChildren, params GUILayoutOption[] options);
-    public void AutoPropertyField(string propertyName, bool includeChildren = true, GUIContent label = null, params GUILayoutOption[] options) {
+    public void Header(string text) {
+        EditorGUILayout.LabelField(text, HeaderStyle);
+    }
+
+    public SerializedProperty AutoProperty(string propertyName) {
         if (!MyProperties.ContainsKey(propertyName)) {
             SerializedProperty newProp = serializedObject.FindProperty(propertyName);
 
             if (newProp == null) {
-                EditorGUILayout.LabelField("Property \"" + propertyName + "\" Does Not Exist");
-                return;
+                return null;
             }
-            
-
-
             MyProperties.Add(propertyName, newProp);
-            
+
+            return newProp;
+        } else {
+            return MyProperties[propertyName];
+        }
+    }
+
+    // Return value is whether or not the property exists. Useful for drawing compound widgets:
+    public bool AutoPropertyField(string propertyName, bool includeChildren = true, GUIContent label = null, params GUILayoutOption[] options) {
+        SerializedProperty prop = AutoProperty(propertyName);
+
+        if (prop == null) {
+            EditorGUILayout.LabelField("Property \"" + propertyName + "\" Does Not Exist");
+            return false;
         }
 
         if (label == null) {
@@ -60,20 +79,15 @@ public class AlexEditorBase<T> : Editor where T : UnityEngine.Object {
         } else {
             EditorGUILayout.PropertyField(MyProperties[propertyName], label, includeChildren, options);
         }
-        
+        return true;
     }
-    
-    public void PositionedAutoPropertyField(Rect pos, string propertyName, bool includeChildren = true, GUIContent label = null, params GUILayoutOption[] options) {
-        if (!MyProperties.ContainsKey(propertyName)) {
-            SerializedProperty newProp = serializedObject.FindProperty(propertyName);
 
-            if (newProp == null) {
-                EditorGUILayout.LabelField("Property \"" + propertyName + "\" Does Not Exist");
-                return;
-            }
+    public bool PositionedAutoPropertyField(Rect pos, string propertyName, bool includeChildren = true, GUIContent label = null, params GUILayoutOption[] options) {
+        SerializedProperty prop = AutoProperty(propertyName);
 
-            MyProperties.Add(propertyName, newProp);
-            
+        if (prop == null) {
+            EditorGUILayout.LabelField("Property \"" + propertyName + "\" Does Not Exist");
+            return false;
         }
 
         if (label == null) {
@@ -81,9 +95,29 @@ public class AlexEditorBase<T> : Editor where T : UnityEngine.Object {
         } else {
             EditorGUI.PropertyField(pos, MyProperties[propertyName], label, includeChildren);
         }
-        
+        return true;
     }
-    
+
+    public void OpenFolderPathAutoPropertyField(
+        string propertyName,
+        string folder,
+        string defaultName,
+        GUIContent label = null,
+        params GUILayoutOption[] options
+    ) {
+        EditorGUILayout.BeginHorizontal(options);
+        if (AutoPropertyField(propertyName)) {
+            if (GUILayout.Button("Select Folder", GUILayout.MaxWidth(90f))) {
+                AutoProperty(propertyName).stringValue = EditorUtility.OpenFolderPanel(
+                    "Select " + (string.IsNullOrWhiteSpace(label.text) ? propertyName : label.text),
+                    folder,
+                    defaultName
+                );
+            }
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
     public U UnityObjectLayoutField<U>(string Label, U obj, bool allowSceneObjects, params GUILayoutOption[] options) where U : UnityEngine.Object {
 
         return AlexEditorHelper.AutoObjectLayoutField<U>(Label, obj, allowSceneObjects, options);
@@ -107,9 +141,7 @@ public class AlexEditorBase<T> : Editor where T : UnityEngine.Object {
                     EditorGUILayout.LabelField("Could not access property");
                 }
             }
-
         }
-
         mySerialized.ApplyModifiedProperties();
     }
 }
@@ -124,6 +156,35 @@ public class AlexEditorHelper {
 
         return (U)EditorGUI.ObjectField(rect, Label, obj, typeof(U), allowSceneObjects);
     }
+
+    public static string StringPopupLayout(string label, string selection, List<string> choices) {
+        int currentSelection = choices.IndexOf(selection);
+        if (currentSelection < 0) {
+            currentSelection = 0;
+        }
+        return choices[
+            EditorGUILayout.Popup(
+                label,
+                currentSelection,
+                choices.ToArray()
+            )
+        ];
+    }
+
+    public static string StringPopup(Rect rect, string label, string selection, List<string> choices) {
+        int currentSelection = choices.IndexOf(selection);
+        if (currentSelection < 0) {
+            currentSelection = 0;
+        }
+        return choices[
+            EditorGUI.Popup(
+                rect,
+                label,
+                currentSelection,
+                choices.ToArray()
+            )
+        ];
+    }
 }
 
 [System.Serializable]
@@ -131,12 +192,12 @@ public class AutoPropertyManager {
 
     protected SerializedObject serializedObject;
     public Dictionary<string, SerializedProperty> myProperties = new Dictionary<string, SerializedProperty>();
-    
-    
+
+
 
     public AutoPropertyManager(SerializedObject pSObject) {
         serializedObject = pSObject;
-        
+
     }
 
     public SerializedObject GetSObject() {
@@ -149,12 +210,12 @@ public class AutoPropertyManager {
 
     public void Update() {
         serializedObject.Update();
-    }    
+    }
     public void Apply() {
         serializedObject.ApplyModifiedProperties();
     }
-    
-    public SerializedProperty AutoProperty (string propertyName) {
+
+    public SerializedProperty AutoProperty(string propertyName) {
         if (!myProperties.ContainsKey(propertyName)) {
             SerializedProperty newProp = serializedObject.FindProperty(propertyName);
 
@@ -166,7 +227,7 @@ public class AutoPropertyManager {
 
         return myProperties[propertyName];
     }
-    
+
     //SerializedProperty property, GUIContent label, bool includeChildren, params GUILayoutOption[] options);
     public void LayoutAutoPropertyField(string propertyName, bool includeChildren = true, GUIContent label = null, params GUILayoutOption[] options) {
         SerializedProperty prop = AutoProperty(propertyName);
@@ -181,9 +242,9 @@ public class AutoPropertyManager {
         } else {
             EditorGUILayout.PropertyField(myProperties[propertyName], label, includeChildren, options);
         }
-        
+
     }
-    
+
     public void AutoPropertyField(Rect pos, string propertyName, bool includeChildren = true, GUIContent label = null, params GUILayoutOption[] options) {
         SerializedProperty prop = AutoProperty(propertyName);
 
@@ -197,9 +258,9 @@ public class AutoPropertyManager {
         } else {
             EditorGUI.PropertyField(pos, prop, label, includeChildren);
         }
-        
+
     }
-    
+
     public static void QuickSerializedPropertyField(UnityEngine.Object useObject, string PropertyName, bool includeChildren = false) {
         SerializedObject mySerialized = new SerializedObject(useObject);
         mySerialized.Update();
@@ -218,8 +279,8 @@ public class AutoPropertyManager {
 
         mySerialized.ApplyModifiedProperties();
     }
-    
-    
+
+
 
 
 }

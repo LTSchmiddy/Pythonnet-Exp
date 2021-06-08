@@ -1,0 +1,195 @@
+void Awake() {
+        DoMessage("Awake");
+    }
+void FixedUpdate() {
+        DoMessage("FixedUpdate");
+    }
+void LateUpdate() {
+        DoMessage("LateUpdate");
+    }
+void OnAnimatorIK() {
+        DoMessage("OnAnimatorIK");
+    }
+void OnAnimatorMove() {
+        DoMessage("OnAnimatorMove");
+    }
+void OnApplicationFocus() {
+        DoMessage("OnApplicationFocus");
+    }
+void OnApplicationPause() {
+        DoMessage("OnApplicationPause");
+    }
+void OnApplicationQuit() {
+        DoMessage("OnApplicationQuit");
+    }
+void OnAudioFilterRead() {
+        DoMessage("OnAudioFilterRead");
+    }
+void OnBecameInvisible() {
+        DoMessage("OnBecameInvisible");
+    }
+void OnBecameVisible() {
+        DoMessage("OnBecameVisible");
+    }
+void OnCollisionEnter() {
+        DoMessage("OnCollisionEnter");
+    }
+void OnCollisionEnter2D() {
+        DoMessage("OnCollisionEnter2D");
+    }
+void OnCollisionExit() {
+        DoMessage("OnCollisionExit");
+    }
+void OnCollisionExit2D() {
+        DoMessage("OnCollisionExit2D");
+    }
+void OnCollisionStay() {
+        DoMessage("OnCollisionStay");
+    }
+void OnCollisionStay2D() {
+        DoMessage("OnCollisionStay2D");
+    }
+void OnConnectedToServer() {
+        DoMessage("OnConnectedToServer");
+    }
+void OnControllerColliderHit() {
+        DoMessage("OnControllerColliderHit");
+    }
+void OnDestroy() {
+        DoMessage("OnDestroy");
+    }
+void OnDisable() {
+        DoMessage("OnDisable");
+    }
+void OnDisconnectedFromServer() {
+        DoMessage("OnDisconnectedFromServer");
+    }
+void OnDrawGizmos() {
+        DoMessage("OnDrawGizmos");
+    }
+void OnDrawGizmosSelected() {
+        DoMessage("OnDrawGizmosSelected");
+    }
+void OnEnable() {
+        DoMessage("OnEnable");
+    }
+void OnFailedToConnect() {
+        DoMessage("OnFailedToConnect");
+    }
+void OnFailedToConnectToMasterServer() {
+        DoMessage("OnFailedToConnectToMasterServer");
+    }
+void OnGUI() {
+        DoMessage("OnGUI");
+    }
+void OnJointBreak() {
+        DoMessage("OnJointBreak");
+    }
+void OnJointBreak2D() {
+        DoMessage("OnJointBreak2D");
+    }
+void OnMasterServerEvent() {
+        DoMessage("OnMasterServerEvent");
+    }
+void OnMouseDown() {
+        DoMessage("OnMouseDown");
+    }
+void OnMouseDrag() {
+        DoMessage("OnMouseDrag");
+    }
+void OnMouseEnter() {
+        DoMessage("OnMouseEnter");
+    }
+void OnMouseExit() {
+        DoMessage("OnMouseExit");
+    }
+void OnMouseOver() {
+        DoMessage("OnMouseOver");
+    }
+void OnMouseUp() {
+        DoMessage("OnMouseUp");
+    }
+void OnMouseUpAsButton() {
+        DoMessage("OnMouseUpAsButton");
+    }
+void OnNetworkInstantiate() {
+        DoMessage("OnNetworkInstantiate");
+    }
+void OnParticleCollision() {
+        DoMessage("OnParticleCollision");
+    }
+void OnParticleSystemStopped() {
+        DoMessage("OnParticleSystemStopped");
+    }
+void OnParticleTrigger() {
+        DoMessage("OnParticleTrigger");
+    }
+void OnParticleUpdateJobScheduled() {
+        DoMessage("OnParticleUpdateJobScheduled");
+    }
+void OnPlayerConnected() {
+        DoMessage("OnPlayerConnected");
+    }
+void OnPlayerDisconnected() {
+        DoMessage("OnPlayerDisconnected");
+    }
+void OnPostRender() {
+        DoMessage("OnPostRender");
+    }
+void OnPreCull() {
+        DoMessage("OnPreCull");
+    }
+void OnPreRender() {
+        DoMessage("OnPreRender");
+    }
+void OnRenderImage() {
+        DoMessage("OnRenderImage");
+    }
+void OnRenderObject() {
+        DoMessage("OnRenderObject");
+    }
+void OnSerializeNetworkView() {
+        DoMessage("OnSerializeNetworkView");
+    }
+void OnServerInitialized() {
+        DoMessage("OnServerInitialized");
+    }
+void OnTransformChildrenChanged() {
+        DoMessage("OnTransformChildrenChanged");
+    }
+void OnTransformParentChanged() {
+        DoMessage("OnTransformParentChanged");
+    }
+void OnTriggerEnter() {
+        DoMessage("OnTriggerEnter");
+    }
+void OnTriggerEnter2D() {
+        DoMessage("OnTriggerEnter2D");
+    }
+void OnTriggerExit() {
+        DoMessage("OnTriggerExit");
+    }
+void OnTriggerExit2D() {
+        DoMessage("OnTriggerExit2D");
+    }
+void OnTriggerStay() {
+        DoMessage("OnTriggerStay");
+    }
+void OnTriggerStay2D() {
+        DoMessage("OnTriggerStay2D");
+    }
+void OnValidate() {
+        DoMessage("OnValidate");
+    }
+void OnWillRenderObject() {
+        DoMessage("OnWillRenderObject");
+    }
+void Reset() {
+        DoMessage("Reset");
+    }
+void Start() {
+        DoMessage("Start");
+    }
+void Update() {
+        DoMessage("Update");
+    }

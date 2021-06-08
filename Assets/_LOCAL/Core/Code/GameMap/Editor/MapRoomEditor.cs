@@ -27,26 +27,28 @@ namespace GameMapEditor {
 
         public override void OnInspectorGUI_Easy() {
 
-
+            AutoPropertyField("roomId");
+            EditorGUILayout.Space();
             AutoPropertyField("displayName");
-            // AutoPropertyField("aRoomScene");
+            EditorGUILayout.Space();
             AutoPropertyField("roomScene");
-            if (String.IsNullOrEmpty(Target.RoomScene.ScenePath)) {
+            if (Target.RoomScene.GetSceneAsset() == null) {
                 if (GUILayout.Button("Create Unity Scene")) {
                     Target.CreateScene();
+                    EditorUtility.SetDirty(this);
                 }
-            } else if (GUILayout.Button("Open Scene: ")) {
-                EditorSceneManager.OpenScene(Target.RoomScene.ScenePath, OpenSceneMode.Additive);
+            } else if (GUILayout.Button("Open Scene")) {
+                EditorSceneManager.OpenScene(AssetDatabase.GetAssetPath(Target.RoomScene.GetSceneAsset()), OpenSceneMode.Additive);
             }
 
             EditorGUILayout.Space();
             AutoPropertyField("dimensions");
             if (grid == null) {
-                grid = Target.grid;
+                grid = Target.GridDataTranslated;
             }
             EditorGUILayout.Space();
             
-            // Grid Editor Controls:
+            // Grid Editor Controls: 
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("Resize Grid")) {
                 Target.ResizeGrid();
@@ -94,7 +96,7 @@ namespace GameMapEditor {
             DrawGridView();
             if (EditorGUI.EndChangeCheck())
             {
-                Target.grid = grid;
+                Target.GridDataTranslated = grid;
             }
         }
 
@@ -138,7 +140,8 @@ namespace GameMapEditor {
         }
 
         public void RefreshGridView() {
-            grid = Target.grid;
+            grid = Target.GridDataTranslated;
+            EditorUtility.SetDirty(this);
         }
     }
 }

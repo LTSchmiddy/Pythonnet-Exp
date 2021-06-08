@@ -14,9 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowGroupCreation: 1
   rules:
-  - path: Assets/_LOCAL/Content/Main/*
+  - path: Assets/_LOCAL/Content/Main/ItemData
     matchType: 0
-    groupName: Main
+    groupName: ItemData
+    LabelMode: 0
+    labelRefs: []
+    dynamicLabels: []
+    groupTemplate: {fileID: 11400000, guid: 6e9cb356af5fba943889d2b6397b9511, type: 2}
+    groupTemplateApplicationMode: 0
+    simplified: 0
+    addressReplacement: 
+  - path: Assets/_LOCAL/Content/Main/QuestData
+    matchType: 0
+    groupName: QuestData
+    LabelMode: 0
+    labelRefs: []
+    dynamicLabels: []
+    groupTemplate: {fileID: 11400000, guid: 6e9cb356af5fba943889d2b6397b9511, type: 2}
+    groupTemplateApplicationMode: 0
+    simplified: 0
+    addressReplacement: 
+  - path: Assets/_LOCAL/Content/Main/MapData
+    matchType: 0
+    groupName: MapData
     LabelMode: 0
     labelRefs: []
     dynamicLabels: []

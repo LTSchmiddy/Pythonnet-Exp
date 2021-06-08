@@ -86,8 +86,6 @@ namespace GameMapEditor {
             if (serializedMap == null) {
                 serializedMap = new SerializedObject(SelectedMap);
             }
-
-
             
             props.Update();
             // this.position

@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
 using GameUniverse;
 using GameUniverse.SceneTypes;
 using System.Text;
-using Utilities.AssetReferenceTypes;
+using Utilities;
 
 
 #if UNITY_EDITOR
@@ -16,6 +18,11 @@ using UnityEditor.SceneManagement;
 #endif
 
 namespace GameMap {
+    [Serializable]
+    public class AR_MapRoom : ExtendedAssetReferenceT<MapRoom> {
+        public AR_MapRoom(string guid) : base(guid) {}
+    }
+    
     [CreateAssetMenu(menuName="_LOCAL/WorldMap/Map Room", fileName="New Map Room", order=0)]
     public class MapRoom : ScriptableObject {
         public enum GridSelectionType {
@@ -28,17 +35,32 @@ namespace GameMap {
         public const char GRID_DATA_TRUE = 'o';
         public const char GRID_DATA_FALSE = 'x';
 
+        private List<Map> connectedMaps = new List<Map>(1);
+        private SceneInstance instance;
+
+        [SerializeField] private SerializableGuid roomId;
+        // [SerializeField] private Guid roomId;
         [SerializeField] protected string displayName;
         [SerializeField] protected MapScene roomScene;
         [SerializeField] protected Vector2Int dimensions;
         // [SerializeField] protected List<List<bool>> grid;
         [SerializeField] protected string gridData;
 
-        public MapScene RoomScene { get => roomScene; set => roomScene = value; }
-        public string DisplayName { get => displayName; set => displayName = value; }
-        public Vector2Int Dimensions { get => dimensions; set => dimensions = value; }
 
-        public bool[,] grid {
+        public SceneInstance Instance { get => instance; private set => instance = value; }        
+        public Guid RoomId { get => roomId; private set => roomId = value; }
+        public MapScene RoomScene { get => roomScene; private set => roomScene = value; }
+        public string DisplayName { get => displayName; private set => displayName = value; }
+        public Vector2Int Dimensions { get => dimensions; private set => dimensions = value; }
+
+        public bool[,] Grid {get; private set;}
+        public bool IsUnpacked {
+            get {
+                return Grid != null;
+            }
+        }
+
+        public bool[,] GridDataTranslated {
 
             get {
                 bool[,] retVal = new bool[Dimensions.x,Dimensions.y];
@@ -73,9 +95,37 @@ namespace GameMap {
             }
         }
 
-        public List<List<bool>> gridList {
+        /// <summary>
+        /// Takes the raw gridData and assembles all variants of that data needed at runtime.
+        /// </summary>
+        public void Unpack() {
+            // No point in unpacking twice, even if the room is on two different maps.
+            if (IsUnpacked) {return;}
+            Grid = GridDataTranslated;
+        }
+
+        public void RegisterAsMapMember(Map map) {
+            connectedMaps.Add(map);
+        }
+
+
+        public AsyncOperationHandle<SceneInstance> LoadRoom() {
+            AsyncOperationHandle<SceneInstance> retVal = RoomScene.LoadSceneAsync(LoadSceneMode.Additive);
+            retVal.Completed += (AsyncOperationHandle<SceneInstance> op) => {
+                Instance = op.Result;
+            };
+
+            return retVal;
+        }
+
+        public AsyncOperationHandle<SceneInstance> UnloadRoom() {
+            return RoomScene.UnLoadScene();
+        }
+
+#if UNITY_EDITOR
+        public List<List<bool>> GridDataTranslatedList {
             get {
-                bool[,] currentGrid = grid;
+                bool[,] currentGrid = GridDataTranslated;
                 List<List<bool>> retVal = new List<List<bool>>(currentGrid.GetLength(1));
 
                 for (int y = 0; y < currentGrid.GetLength(1); y++) {
@@ -98,11 +148,10 @@ namespace GameMap {
                     }
                 }
 
-                grid = newGrid;
+                GridDataTranslated = newGrid;
             }
         }
 
-#if UNITY_EDITOR
         public Scene CreateScene(bool keepOpen = false) {
             // Creates new scene:
             Scene retVal = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
@@ -115,9 +164,9 @@ namespace GameMap {
             if (!keepOpen) {
                 EditorSceneManager.CloseScene(retVal, true);
             }
-
+            AssetDatabase.ImportAsset(scenePath);
             // Storing the saved scene:
-            RoomScene.ScenePath = scenePath;
+            RoomScene.SetEditorAsset(AssetDatabase.LoadAssetAtPath<SceneAsset>(scenePath));
             return retVal;
         }
         public void ResizeGrid(Vector2Int newSize) {
@@ -127,12 +176,12 @@ namespace GameMap {
 
         public void ResizeGrid() {
             // Running both sides of the conversion process should correct the grid's size:
-            bool[,] convertedGrid = grid;
-            grid = convertedGrid;
+            bool[,] convertedGrid = GridDataTranslated;
+            GridDataTranslated = convertedGrid;
         }
 
         public void ChangeGridSelection(GridSelectionType selectionType) {
-            bool[,] newGrid = grid;
+            bool[,] newGrid = GridDataTranslated;
 
             for (int y = 0; y < newGrid.GetLength(1); y++) {
                 for (int x = 0; x < newGrid.GetLength(0); x++) {
@@ -150,14 +199,14 @@ namespace GameMap {
                 }
             }
 
-            grid = newGrid;
+            GridDataTranslated = newGrid;
         }
 
         public void ShiftGrid(Vector2Int shift) {
             ShiftGrid(shift.x, shift.y);
         }
         public void ShiftGrid(int xShift, int yShift) {
-            List<List<bool>> currentGridList = gridList;
+            List<List<bool>> currentGridList = GridDataTranslatedList;
 
             // Shifting on Y is easier. Lets do that first:
             listShifter<List<bool>>(currentGridList, yShift);
@@ -166,7 +215,7 @@ namespace GameMap {
             foreach (List<bool> row in currentGridList) {
                 listShifter(row, xShift);
             }
-            gridList = currentGridList;
+            GridDataTranslatedList = currentGridList;
         }
 
         private void listShifter<T>(List<T> list, int shift) {

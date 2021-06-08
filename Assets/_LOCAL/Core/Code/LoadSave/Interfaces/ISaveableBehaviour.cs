@@ -5,8 +5,9 @@ using UnityEngine;
 namespace LoadSave {
     public interface ISaveableBehaviour {
         
-        // Uses the referential nature of 
-        void LinkSaveableInfo(Dictionary<string, ISaveableInfo> info);
+        void LinkSaveableInfo(SaveIdRecord record);
+
+        // string GetRecordKey();
 
     }
 }

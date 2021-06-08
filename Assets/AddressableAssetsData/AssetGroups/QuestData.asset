@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: QuestData
+  m_EditorClassIdentifier: 
+  m_GroupName: QuestData
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 91b1551016e53d44590a02bc0a685be2
+  m_SerializeEntries:
+  - m_GUID: 2fb23bc089f68484fb756fe59056ef78
+    m_Address: Assets/_LOCAL/Content/Main/QuestData/Quests
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 0835a137b74fcbc43b02b8d45a5fa3ba
+    m_Address: Assets/_LOCAL/Content/Main/QuestData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: e80ff3b11af89d14180b39cc55f58e36
+    m_Address: Assets/_LOCAL/Content/Main/QuestData/Quest Language Database.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 922d44358e8280448a04c593c2311179
+    m_Address: Assets/_LOCAL/Content/Main/QuestData/Quest Database.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 20d062bdc4f1ec945ac36fd2b8a0e524
+    m_Address: Assets/_LOCAL/Content/Main/QuestData/New Dialogue.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: e38645cd5869d134eb392893ec86dac3
+    m_Address: Assets/_LOCAL/Content/Main/QuestData/Quest Settings Database.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8a60ccc85b46dcc4280c60b1d2589311, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 45ba2a07517ebfc4ca8be6f3338aa3c7, type: 2}
+    - {fileID: 11400000, guid: 1ccdc6dd72fc8964e8717c43efb9b548, type: 2}

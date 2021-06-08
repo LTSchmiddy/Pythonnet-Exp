@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1172febd8832e424981b08ad1e6a4401, type: 3}
   m_Name: LoadSaveDataObject
   m_EditorClassIdentifier: 
+  gameStartRoom:
+    m_AssetGUID: 3535d9f495aaf06499d4f2b9600030c9
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  data:
+    profileName: 

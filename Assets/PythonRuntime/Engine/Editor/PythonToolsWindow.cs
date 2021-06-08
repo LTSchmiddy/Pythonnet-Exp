@@ -26,6 +26,7 @@ namespace PythonEngineEditor {
         }
 
         void Init() {
+            titleContent = new GUIContent("Python Tools Window");
             if (PythonManager.IsInitialized) {
                 InitPythonData();
             }
@@ -61,7 +62,7 @@ namespace PythonEngineEditor {
             }
 
             if (GUILayout.Button("Build Python Code Archive")) {
-                PythonScriptsBuildHandler.BuildPythonCodeArchive("./Assets", "core.zip");
+                PythonEditorUtilities.BuildPythonCodeArchive("./Assets", "core.zip");
             }
 
             // AlexEditorBase<PythonToolsWindow>.QuickSerializedPropertyField(this, "GeneratedNamespaces", true);

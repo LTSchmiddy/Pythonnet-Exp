@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/_LOCAL/Core/CoreScenes/root.unity
     guid: 1f8917240949e5d4bb645e002b6a2be5
   - enabled: 1
-    path: Assets/InAudio/InAudioScene.unity
+    path: Assets/_LOCAL/Core/CoreScenes/InAudioScene.unity
     guid: 1614a2ea593b486459e3e3786334cf16
   - enabled: 1
     path: Assets/_LOCAL/Core/CoreScenes/in-game-data.unity

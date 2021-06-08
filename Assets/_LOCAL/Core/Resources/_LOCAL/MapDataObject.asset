@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c88820c5ec0654c953dee7be3c2488, type: 3}
   m_Name: MapDataObject
   m_EditorClassIdentifier: 
-  scenes: []
+  arMaps:
+  - m_AssetGUID: 3eaa467842850ef479f6aa860b426b04
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

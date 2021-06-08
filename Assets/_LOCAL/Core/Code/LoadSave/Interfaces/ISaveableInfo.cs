@@ -4,6 +4,6 @@ using UnityEngine;
 
 namespace LoadSave {
     public interface ISaveableInfo {
-        
+        string GetRecordKey();
     }
 }

@@ -11,16 +11,11 @@ namespace GameUI {
     {
         // Start is called before the first frame update
 
-        public PythonModuleReference script;
-
-        private PyObject _module;
-        void Start() {
-            _module = script.Import();
-        }
+        public PythonFunctionObject function;
 
         // Update is called once per frame
         void OnGUI() {
-            _module.InvokeMethod("OnGUI", gameObject.ToPython());
+            function.Call(gameObject);
         }
     }
 
