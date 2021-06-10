@@ -28,9 +28,30 @@ namespace AlexEditorUtilities.ProjectBuilder {
 
         // Python Info
         public string pythonRuntimeDir = "";
-        public string pythonCodeArchiveName = "core.zip";
+        public string pythonCodeArchiveFolderName = "ScriptBundles";
+        public string mainPythonCodeArchiveName = "core.zip";
 
-        public BuildReport BuildCorePlayer() {
+        public string buildOutputDatPathDir {
+            get {
+                switch (buildTarget) {
+                    case BuildTarget.StandaloneWindows:
+                    case BuildTarget.StandaloneWindows64:
+                    case BuildTarget.StandaloneLinux64:
+                        return buildOutputDir + "/" + PlayerSettings.productName + "_Data";
+                        
+                    default:
+                        return buildOutputDir;
+                }
+            }
+        }
+
+        public string ScriptBundleOutputPath {
+            get {
+                return buildOutputDatPathDir + "/" + pythonCodeArchiveFolderName;
+            }
+        }
+
+        public BuildReport BuildCorePlayer(bool copyDataFiles = false) {
             BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
 
             if (useEditorScenes) {
@@ -55,6 +76,13 @@ namespace AlexEditorUtilities.ProjectBuilder {
             BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
             BuildSummary summary = report.summary;
 
+            if (copyDataFiles) {
+                CopyDefaultRecordsToBuild();
+                CopyPythonScriptsToBuild();
+                CopyInternalPythonScriptsToBuild();
+                PythonCodeArchiveForBuild();
+            }
+
             if (summary.result == BuildResult.Succeeded) {
                 Debug.Log("Build succeeded: " + summary.totalSize + " bytes");
             }
@@ -67,7 +95,7 @@ namespace AlexEditorUtilities.ProjectBuilder {
         }
 
         public void CopyDefaultRecordsToBuild() {
-            PythonEditorUtilities.DirectoryCopy(defaultRecordsSource, buildOutputDir + "/DefaultRecords", true);
+            PythonEditorUtilities.DirectoryCopy(defaultRecordsSource, buildOutputDatPathDir + "/DefaultRecords", true);
         }
 
         public void CopyPythonRuntimeToBuild() {
@@ -75,15 +103,28 @@ namespace AlexEditorUtilities.ProjectBuilder {
         }
 
         public void CopyPythonScriptsToBuild() {
-            PythonEditorUtilities.DirectoryCopy("./PythonScripts", buildOutputDir + "/PythonScripts", true);
+            PythonEditorUtilities.DirectoryCopy("./PythonScripts", buildOutputDatPathDir + "/Scripts", true);
         }
 
         public void CopyInternalPythonScriptsToBuild() {
-            PythonEditorUtilities.DirectoryCopy("./PythonScripts_Internal", buildOutputDir + "/PythonScripts_Internal", true);
+            PythonEditorUtilities.DirectoryCopy("./PythonScripts_Internal", buildOutputDatPathDir + "/Scripts_Internal", true);
         }
 
         public void PythonCodeArchiveForBuild() {
-            PythonEditorUtilities.BuildPythonCodeArchive("./Assets", buildOutputDir + "/" + pythonCodeArchiveName);
+            if (Directory.Exists(ScriptBundleOutputPath)){
+                Directory.CreateDirectory(ScriptBundleOutputPath);
+            }
+
+            PythonEditorUtilities.BuildPythonCodeArchive("./Assets", ScriptBundleOutputPath + "/" + mainPythonCodeArchiveName);
+        }
+
+        public void BuildAll() {
+            BuildCorePlayer();
+            CopyDefaultRecordsToBuild();
+            CopyPythonRuntimeToBuild();
+            CopyPythonScriptsToBuild();
+            CopyInternalPythonScriptsToBuild();
+            PythonCodeArchiveForBuild();
         }
     }
 
@@ -99,6 +140,10 @@ namespace AlexEditorUtilities.ProjectBuilder {
         }
 
         public override void OnInspectorGUI_Easy() {
+            if (GUILayout.Button("Run Complete Build")) {
+                Target.BuildAll();    
+            }
+            EditorGUILayout.Space(15);
             PlayerBuildInfo();
             SaveDataBuildInfo();
             PythonBuildInfo();
@@ -148,7 +193,6 @@ namespace AlexEditorUtilities.ProjectBuilder {
 
                 Target.buildOptions = currentOptions;
                 EditorGUI.indentLevel--;
-
             }
 
             EditorGUI.indentLevel--;
@@ -158,7 +202,7 @@ namespace AlexEditorUtilities.ProjectBuilder {
             Header("Save Data: ");
             OpenFolderPathAutoPropertyField("defaultRecordsSource", "", "DefaultRecords", new GUIContent("Default Records Source"));
             if (GUILayout.Button("Copy Default Records To Build")) {
-                Target.PythonCodeArchiveForBuild();
+                Target.CopyDefaultRecordsToBuild();
             }
             EditorGUILayout.Space(10);
         }
@@ -167,7 +211,8 @@ namespace AlexEditorUtilities.ProjectBuilder {
             Header("Python Runtime: ");
             OpenFolderPathAutoPropertyField("pythonRuntimeDir", PythonManager.PYTHON_RUNTIME_DIRECTORY, "");
 
-            AutoPropertyField("pythonCodeArchiveName");
+            AutoPropertyField("pythonCodeArchiveFolderName");
+            AutoPropertyField("mainPythonCodeArchiveName");
 
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("Copy Runtime to Build")) {

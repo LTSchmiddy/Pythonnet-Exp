@@ -14,7 +14,11 @@ namespace PythonEngineEditor {
     [ScriptedImporter(version: 19, ext: "py")]
     public class PythonScriptImporter : ScriptedImporter {
         public override void OnImportAsset(AssetImportContext ctx) {
-            // Debug.Log("Importing PyScript: " + ctx.assetPath);
+            if(!ctx.assetPath.StartsWith("Assets/")){
+                Debug.Log("PyScript '" + ctx.assetPath + "' Not in Assets Folder...");
+                return;
+            }
+
             string moduleName = Path.GetFileNameWithoutExtension(ctx.assetPath);
 
             // Parsing Python Code:

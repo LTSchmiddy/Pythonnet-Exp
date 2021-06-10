@@ -3,10 +3,7 @@ import zipfile, pathlib, os
 # import clr
 # clr.AddReference("UnityEditor")
 
-# from UtilitiesEditor import AddressablesHelper
-# from UnityEngine.AddressableAssets import Addressables
-# from PythonEngine import PythonModuleObject
-
+from System import *
 
 def assemble_python_code_archive(rootDirectory: str, outputPath: str):
     added_inits = []
@@ -24,9 +21,6 @@ def assemble_python_code_archive(rootDirectory: str, outputPath: str):
                 continue
             
             file = path.joinpath(fileName)
-            
-            # _asset = Addressables.LoadAsset[PythonModuleObject](file)
-            # print(_asset)
             
             outArchive.write(file, str(file)[len("Assets/"):])
             

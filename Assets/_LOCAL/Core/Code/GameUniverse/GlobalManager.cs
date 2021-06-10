@@ -33,12 +33,16 @@ namespace GameUniverse {
         [SerializeField] public GameDB dB;
         [SerializeField] private MapData mapData;
         [SerializeField] private LoadSaveManager loadSaveManager;
-
-        // Might ditch these... not sure yet.
-        public DataScene inGameDataScene;
+        
         public DataScene inAudioScene;
         public DataScene mainMenuScene;
 
+        public GameObject loadingScreenPrefab;
+        public GameObject gameCameraPrefab;
+        
+        // Instance Properties:
+        public GameObject loadingScreenGO {get; private set;}
+        public Camera gameCamera {get; private set;}
 
         #region Startup
         // This serves as a sort of... entry point for the game.
@@ -68,6 +72,9 @@ namespace GameUniverse {
             Instance.InstanceInit();
         }
         protected void InstanceInit() {
+            SetupGameCamera();
+            SetupLoadingScreen();
+
             settingsManager.GetSettingsFromFile();
             settingsManager.Apply();
 
@@ -120,6 +127,19 @@ namespace GameUniverse {
                 settingsManager.Apply();
             }
         }
+
+        void SetupLoadingScreen() {
+            loadingScreenGO = Instantiate(loadingScreenPrefab);
+            loadingScreenGO.transform.parent = transform;
+            loadingScreenGO.SetActive(false);
+            // loadingScreenGO.
+        }
+
+        void SetupGameCamera() {
+            gameCamera = Instantiate(gameCameraPrefab).GetComponent<Camera>();
+            gameCamera.transform.parent = transform;
+        }
+
         #endregion
         // Start is called before the first frame update
     }

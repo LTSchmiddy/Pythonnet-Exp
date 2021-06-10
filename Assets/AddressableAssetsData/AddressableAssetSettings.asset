@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DefaultGroup: 798c7c2669675cc46b5bae1adf274fc6
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
   m_DisableCatalogUpdateOnStart: 0
   m_IgnoreUnsupportedFilesInBuild: 0
@@ -24,9 +24,9 @@ MonoBehaviour:
   m_ShaderBundleNaming: 0
   m_ShaderBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: bbadaacaf847c9d49af5a6c0f3dc680e
   m_RemoteCatalogLoadPath:
-    m_Id: 
+    m_Id: e1c45058b74f03449b8d3d70bb4feb3c
   m_ContentStateBuildPath: 
   m_overridePlayerVersion: 
   m_GroupAssets:

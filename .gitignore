@@ -54,3 +54,4 @@ crashlytics-build.properties
 /UserSettings/
 /.vscode/
 /pythonnet-user-assemblies.json
+/core.zip

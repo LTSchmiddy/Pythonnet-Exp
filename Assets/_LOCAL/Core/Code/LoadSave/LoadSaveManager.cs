@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using System;
 using System.IO;
 using System.Collections;
@@ -56,7 +57,7 @@ namespace LoadSave {
                 return System.IO.Directory.GetCurrentDirectory();
             #else
                 // return Application.StartupPath;
-                return System.IO.Directory.GetCurrentDirectory();
+                return Application.dataPath;
             #endif
         }
 
