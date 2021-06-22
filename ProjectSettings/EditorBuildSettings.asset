@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_LOCAL/Core/CoreScenes/main-menu.unity
     guid: 2862f05bf3fe29649868779b45da3a04
+  - enabled: 1
+    path: Assets/_LOCAL/Core/CoreScenes/options-menu.unity
+    guid: ab7000662fec89149aafd417c753a07d
   m_configObjects:
     addressableimportsettings: {fileID: 11400000, guid: 73dad1eb68c61bf4eaae5c9dafb35560,
       type: 2}

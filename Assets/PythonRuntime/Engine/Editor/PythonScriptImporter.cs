@@ -11,7 +11,7 @@ using Python.Runtime;
 using PythonEngine;
 
 namespace PythonEngineEditor {
-    [ScriptedImporter(version: 19, ext: "py")]
+    [ScriptedImporter(version: 20, ext: "py")]
     public class PythonScriptImporter : ScriptedImporter {
         public override void OnImportAsset(AssetImportContext ctx) {
             if(!ctx.assetPath.StartsWith("Assets/")){
@@ -23,6 +23,8 @@ namespace PythonEngineEditor {
 
             // Parsing Python Code:
             PythonFile script = PythonFile.New(moduleName);
+            
+            script.code = File.ReadAllText(ctx.assetPath);
             PyObject result;
             using (Py.GIL()) {
                 result = PyUtil.Invoke("unity_python_file_analyser", "analyse_PythonFile", script.ToPython(), ctx.assetPath.ToPython());
@@ -42,7 +44,7 @@ namespace PythonEngineEditor {
             // Creating Class Objects:
             foreach (string i in script.definedClassNames){
                 PythonClassObject classObj = PythonClassObject.EditorNew(script, i);
-                classObj.name = "(Class) " + i;
+                classObj.name = i;
                 ctx.AddObjectToAsset(classObj.name, classObj);
                 module.classes.Add(classObj);
             }
@@ -51,17 +53,10 @@ namespace PythonEngineEditor {
             module.functions = new List<PythonFunctionObject>(script.definedFunctionNames.Count);
             foreach (string i in script.definedFunctionNames){
                 PythonFunctionObject fnObj = PythonFunctionObject.EditorNew(script, i);
-                fnObj.name = "(Function) " + i;
+                fnObj.name = i;
                 ctx.AddObjectToAsset(fnObj.name, fnObj);
                 module.functions.Add(fnObj);
             }
-            
-
-            
-            
-            
-
-            
         }
     }
 }

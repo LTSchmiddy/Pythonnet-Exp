@@ -319,8 +319,13 @@ namespace SubjectNerd.Utilities
 			if (isInitialized && FORCE_INIT == false)
 				return;
 
-			styleEditBox = new GUIStyle(EditorStyles.helpBox) { padding = new RectOffset(5, 5, 5, 5) };
-			FindTargetProperties();
+			try {
+				styleEditBox = new GUIStyle(EditorStyles.helpBox) { padding = new RectOffset(5, 5, 5, 5) };
+				FindTargetProperties();
+			} catch (NullReferenceException ) {
+				styleEditBox = new GUIStyle() { padding = new RectOffset(5, 5, 5, 5) };
+			}
+			// FindTargetProperties();
 			FindContextMenu();
 		}
 
@@ -330,6 +335,9 @@ namespace SubjectNerd.Utilities
 			editableIndex.Clear();
 			Type typeScriptable = typeof(ScriptableObject);
 
+
+			// if (serializedObject.)
+			
 			SerializedProperty iterProp = serializedObject.GetIterator();
 			// This iterator goes through all the child serialized properties, looking
 			// for properties that have the SortableArray attribute

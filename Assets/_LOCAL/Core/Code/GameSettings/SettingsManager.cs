@@ -44,7 +44,7 @@ namespace GameSettings {
             reader.Close();
         }
 
-        public void Apply() {
+        public void ApplyAll() {
             settings.Apply();
         }
     }

@@ -29,3 +29,47 @@ MonoBehaviour:
         value: 1
       environVolume:
         value: 1
+    inputActions:
+      m_Name: Input Actions
+      m_Id: 67bab1c1-3a5f-47d0-a88d-28602912c0fe
+      m_Asset: {fileID: 0}
+      m_Actions:
+      - m_Name: New action
+        m_Type: 1
+        m_ExpectedControlType: Button
+        m_Id: fc43674f-374c-4637-b7a6-3f296efcf9bd
+        m_Processors: 
+        m_Interactions: 
+        m_SingletonActionBindings: []
+      m_Bindings:
+      - m_Name: 
+        m_Id: ed0ec726-bbd7-442d-9067-f633f58efadb
+        m_Path: <Keyboard>/anyKey
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: New action
+        m_Flags: 0
+  settings:
+    display:
+      fullScreen: 1
+      refreshRate: 144
+      width: 1920
+      height: 1080
+    audio:
+      masterVolume:
+        value: 1
+      musicVolume:
+        value: 1
+      guiVolume:
+        value: 1
+      sfxVolume:
+        value: 1
+      environVolume:
+        value: 1
+    inputActions:
+      m_Name: 
+      m_Id: 
+      m_Asset: {fileID: 0}
+      m_Actions: []
+      m_Bindings: []

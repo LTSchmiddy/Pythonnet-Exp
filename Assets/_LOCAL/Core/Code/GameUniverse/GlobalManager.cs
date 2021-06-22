@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 using GameUniverse.SceneTypes;
 using LoadSave;
@@ -27,22 +30,36 @@ namespace GameUniverse {
         public static MapData Map { get => Instance.mapData; private set => Instance.mapData = value; }
         public static LoadSaveManager LoadSave { get => Instance.loadSaveManager; private set => Instance.loadSaveManager = value; }
 
+        // Runtime Values:
+        private static bool loadingScreenIsRunning = false;
 
         // Instance Fields:
         [SerializeField] private SettingsManager settingsManager;
         [SerializeField] public GameDB dB;
         [SerializeField] private MapData mapData;
         [SerializeField] private LoadSaveManager loadSaveManager;
-        
+
         public DataScene inAudioScene;
         public DataScene mainMenuScene;
+        public DataScene optionsMenuScene;
 
         public GameObject loadingScreenPrefab;
         public GameObject gameCameraPrefab;
-        
+
         // Instance Properties:
-        public GameObject loadingScreenGO {get; private set;}
-        public Camera gameCamera {get; private set;}
+        public GameObject loadingScreenGO { get; private set; }
+        public Camera gameCamera { get; private set; }
+        public EventSystem eventSystem; // {get; private set;}
+
+        public static bool LoadingScreenIsRunning {
+            get {
+                return loadingScreenIsRunning;
+            }
+            private set {
+                loadingScreenIsRunning = value;
+                Instance.loadingScreenGO.SetActive(value);
+            }
+        }
 
         #region Startup
         // This serves as a sort of... entry point for the game.
@@ -72,11 +89,13 @@ namespace GameUniverse {
             Instance.InstanceInit();
         }
         protected void InstanceInit() {
+            eventSystem = GetComponent<EventSystem>();
+
             SetupGameCamera();
             SetupLoadingScreen();
 
             settingsManager.GetSettingsFromFile();
-            settingsManager.Apply();
+            settingsManager.ApplyAll();
 
             // Let's start by loading the MapData:
             mapData.Init();
@@ -85,8 +104,12 @@ namespace GameUniverse {
             loadSaveManager.ConstructNewSave();
 #if UNITY_EDITOR
 #else
-            Debug.LogError("Showing Console");
+            // Debug.LogError("Showing Console");
+            // Loading Game from the top:
+            LoadingScreenOperation(optionsMenuScene.LoadAsync());
+            LoadingScreenOperation(mainMenuScene.LoadAsync());
 #endif
+
         }
 
         #endregion
@@ -98,6 +121,57 @@ namespace GameUniverse {
         /// </summary>
         public static Coroutine GlobalCoroutine(IEnumerator routine) {
             return Instance.StartCoroutine(routine);
+        }
+
+        public static Coroutine LoadingScreenOperation(IEnumerator routine) {
+            return Instance.StartCoroutine(LoadingScreenCoroutine(routine));
+        }
+        
+        public static Coroutine LoadingScreenOperation(AsyncOperationHandle operation) {
+            return Instance.StartCoroutine(LoadingScreenAsyncOperationHandle(operation));
+        }
+
+        public static Coroutine LoadingScreenOperation(AsyncOperation operation) {
+            return Instance.StartCoroutine(LoadingScreenAsyncOperation(operation));
+        }
+
+        // Effectively, this serves as a wrapper for the regular Coroutine system.
+        private static IEnumerator LoadingScreenCoroutine(IEnumerator routine) {
+            // If there's another loading screen process running, wait for it to end.
+            // Should prevent issues with multiple simultaneous loading screen routines.
+            if (LoadingScreenIsRunning) {
+                yield return null;
+            }
+            LoadingScreenIsRunning = true;
+            while (routine.MoveNext()) {
+                yield return routine.Current;
+            }
+            LoadingScreenIsRunning = false;
+        }
+
+        // Loading addressable assets/scenes can also be used as Loading screen operation.
+        private static IEnumerator LoadingScreenAsyncOperationHandle(AsyncOperationHandle operation) {
+            // If there's another loading screen process running, wait for it to end.
+            // Should prevent issues with multiple simultaneous loading screen routines.
+            if (LoadingScreenIsRunning) {
+                yield return null;
+            }
+            LoadingScreenIsRunning = true;
+            while(!operation.IsDone) { yield return null; }
+            
+            LoadingScreenIsRunning = false;
+        }
+
+        private static IEnumerator LoadingScreenAsyncOperation(AsyncOperation operation) {
+            // If there's another loading screen process running, wait for it to end.
+            // Should prevent issues with multiple simultaneous loading screen routines.
+            if (LoadingScreenIsRunning) {
+                yield return null;
+            }
+            LoadingScreenIsRunning = true;
+            while(!operation.isDone) { yield return null; }
+            
+            LoadingScreenIsRunning = false;
         }
 
         #region Game Loading
@@ -124,7 +198,7 @@ namespace GameUniverse {
             if (Keyboard.current[Key.Space].wasPressedThisFrame) {
                 Debug.Log("Applying Settings...");
                 settingsManager.GetSettingsFromFile();
-                settingsManager.Apply();
+                settingsManager.ApplyAll();
             }
         }
 
@@ -140,6 +214,10 @@ namespace GameUniverse {
             gameCamera.transform.parent = transform;
         }
 
+
+        void OnDestroy() {
+            settingsManager.WriteSettingsFile();
+        }
         #endregion
         // Start is called before the first frame update
     }

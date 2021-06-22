@@ -14,7 +14,9 @@ using UnityEditor;
 namespace PythonEngine {
     public static class PythonManager {
 
+        public const string PYTHON_SCRIPT_BUNDLE_DIRECTORY = "ScriptBundles";
         public const string PYTHON_RUNTIME_DIRECTORY = "./PythonRuntime/";
+
 
         private static PyScope scope;
 
@@ -31,29 +33,61 @@ namespace PythonEngine {
             get => Python.Runtime.PythonEngine.IsInitialized;
         }
 
-        private static PyObject pickle;
-        public static PyObject Pickle { get => pickle; private set => pickle = value; }
+        private static dynamic unityPy;
 
-#if UNITY_EDITOR
-        private static PyObject quickDebug;
-        public static PyObject QuickDebug { get => quickDebug; private set => quickDebug = value; }
-#endif
+        private static PyObject pickleModule;
+        public static PyObject PickleModule { get => pickleModule; private set => pickleModule = value; }
+        public static dynamic UnityPy { get => unityPy; private set => unityPy = value; }
+        public static string GetPythonHome() {
+            return PYTHON_RUNTIME_DIRECTORY + "python-3.9.4-embed-amd64";
+        }
+
+        public static string GetPythonScriptBundleDirectory() {
+            return Application.streamingAssetsPath + "/" + PYTHON_SCRIPT_BUNDLE_DIRECTORY;
+        }
+
         public static void Initialize() {
             if (Python.Runtime.PythonEngine.IsInitialized) {
                 return;
             }
 
-            Python.Runtime.PythonEngine.PythonHome = PYTHON_RUNTIME_DIRECTORY + "python-3.9.4-embed-amd64";
+            Python.Runtime.PythonEngine.PythonHome = GetPythonHome();
             Python.Runtime.PythonEngine.Initialize();
             Scope = Py.CreateScope();
+            ConfigureSys();
             using (Py.GIL()) {
-                Scope.Import("unity_py");
-                Pickle = GetModule("unity_pickler");
+                UnityPy = Scope.Import("unity_py");
+                PickleModule = GetModule("unity_pickler");
+            }
+            LoadScriptBundles();
+        }
 
+        public static void ConfigureSys() {
+            using (Py.GIL()) {
+                dynamic sys = Scope.Import("sys");
+
+                sys.path.clear();
+                sys.path.append(GetPythonHome());
+                sys.path.append(GetPythonHome() + "/lib");
+                sys.path.append(GetPythonHome() + "/lib/site-packages");
+                sys.path.append(GetPythonHome() + "/DLLs");
+
+                sys.path.append(Application.streamingAssetsPath + "/PythonScripts_Internal");
+                sys.path.append(Application.streamingAssetsPath + "/PythonScripts_Editor");
+                sys.path.append(Application.streamingAssetsPath + "/PythonScripts");
+            }
+        }
+
+        public static void LoadScriptBundles() {
+            using (Py.GIL()) {
 #if UNITY_EDITOR
-                QuickDebug = GetModule("unity_editor_quick_python_debugging");
-                QuickDebug.InvokeMethod("start_python_debugging");
+                dynamic sys = Scope.Import("sys");
+                sys.path.append(Application.dataPath);
+                // UnityPy.load_script_bundles(GetPythonScriptBundleDirectory());
+#else
+                UnityPy.load_script_bundles(GetPythonScriptBundleDirectory());
 #endif
+
             }
         }
 
@@ -112,20 +146,20 @@ namespace PythonEngine {
         // Python Serialization Methods:
         public static byte[] PickleData(PyObject obj) {
             using (Py.GIL()) {
-                return Pickle.InvokeMethod("dumps", obj).As<byte[]>();
+                return PickleModule.InvokeMethod("dumps", obj).As<byte[]>();
             }
         }
 
         public static PyObject UnpickleData(byte[] data) {
             using (Py.GIL()) {
-                return Pickle.InvokeMethod("loads", data.ToPython());
+                return PickleModule.InvokeMethod("loads", data.ToPython());
 
             }
         }
 
         public static void UnpickleDataInto(byte[] data, PyObject obj) {
             using (Py.GIL()) {
-                Pickle.InvokeMethod("loads_into", data.ToPython(), obj);
+                PickleModule.InvokeMethod("loads_into", data.ToPython(), obj);
 
             }
         }
@@ -147,7 +181,7 @@ namespace PythonEngine {
 
         public void Pickle(PyObject obj) {
             using (Py.GIL()) {
-                module = PythonManager.Pickle.InvokeMethod("get_module", obj).As<string>();
+                module = PythonManager.PickleModule.InvokeMethod("get_module", obj).As<string>();
                 data = PythonManager.PickleData(obj);
 
             }

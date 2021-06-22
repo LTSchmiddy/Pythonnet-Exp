@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 using GameUniverse;
 
@@ -17,6 +18,8 @@ namespace GameSettings {
 
         public DisplaySettings display;
         public AudioSettings audio;
+
+        public InputActionMap inputActions;
 
         public void Apply() {
             display.Apply();

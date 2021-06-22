@@ -15,6 +15,7 @@ namespace PythonEngine {
     // For now, I could use it to
     public class PythonFile : ScriptableObject {
         public string moduleName;
+        public string code;
         public List<string> definedFunctionNames = new List<string>();
         public List<string> definedClassNames = new List<string>();
 

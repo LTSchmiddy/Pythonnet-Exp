@@ -53,12 +53,14 @@ namespace LoadSave {
         public SaveFile data = new SaveFile();
 
         public string GetGameDirectory() {
-            #if UNITY_EDITOR
-                return System.IO.Directory.GetCurrentDirectory();
-            #else
-                // return Application.StartupPath;
-                return Application.dataPath;
-            #endif
+            // #if UNITY_EDITOR
+            //     return System.IO.Directory.GetCurrentDirectory();
+            // #else
+            //     // return Application.StartupPath;
+            //     return Application.dataPath;
+            // #endif
+
+            return Application.streamingAssetsPath;
         }
 
         public SaveGameSettings GetDefaultRecordSettings() {
@@ -85,6 +87,10 @@ namespace LoadSave {
 
             SaveGameSettings default_record_settings = GetDefaultRecordSettings();
             foreach (FileInfo i in SaveGame.GetFiles(DEFAULT_RECORDS_PATH, default_record_settings)) {
+                if (i.Extension == "meta"){
+                    continue;
+                }
+
                 Debug.Log("Loading ID: " + i.Name);
                 
                 // Load Guid and Record:

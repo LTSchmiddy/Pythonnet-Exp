@@ -125,16 +125,17 @@ namespace GameMap {
         #endregion
 
         public void GoToRoom(MapRoom room) {
-            GlobalManager.GlobalCoroutine(GoToRoomRoutine(room));
+            GlobalManager.LoadingScreenOperation(GoToRoomRoutine(room));
         }
 
         public void GoToRoom(string roomId) {
             MapRoom room = rooms[Guid.Parse(roomId)];
-            GlobalManager.GlobalCoroutine(GoToRoomRoutine(room));
+            GlobalManager.LoadingScreenOperation(GoToRoomRoutine(room));
         }
         public void GoToRoom(Guid roomId) {
             MapRoom room = rooms[roomId];
-            GlobalManager.GlobalCoroutine(GoToRoomRoutine(room));
+            var c = GlobalManager.LoadingScreenOperation(GoToRoomRoutine(room));
+            
         }
 
         IEnumerator GoToRoomRoutine(MapRoom room) {

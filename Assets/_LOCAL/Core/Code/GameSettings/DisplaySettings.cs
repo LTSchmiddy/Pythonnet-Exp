@@ -30,9 +30,15 @@ namespace GameSettings {
         }
 
         IEnumerator ApplyCoroutine() {
-            Debug.Log("Setting Display Mode");
+            Debug.Log("Setting Display Mode:");
+            Debug.Log(width);
+            Debug.Log(height);
+            Debug.Log(fullScreen);
+            Debug.Log(refreshRate);
+
             // Screen.SetResolution(width, height, fullScreen, refreshRate);
-            Screen.fullScreen = fullScreen == FullScreenMode.ExclusiveFullScreen || fullScreen == FullScreenMode.FullScreenWindow;
+            // Screen.fullScreen = fullScreen == FullScreenMode.ExclusiveFullScreen || fullScreen == FullScreenMode.FullScreenWindow;
+            Screen.fullScreenMode = fullScreen;
 
             // Apparently, Unity has trouble setting fullscreen and and screen resolution during the same frame.
             // Delaying the change of resolution by 2 frames seems to help.

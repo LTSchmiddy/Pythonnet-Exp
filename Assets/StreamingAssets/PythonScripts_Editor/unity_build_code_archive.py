@@ -13,8 +13,13 @@ def assemble_python_code_archive(rootDirectory: str, outputPath: str):
     outArchive = zipfile.ZipFile(outputPath, 'w');
     
     for pathName, dirs, fileNames in os.walk(rootDirectory):
-        path = pathlib.Path(pathName)
+        # Skip StreamingAssets:
+        if pathName.replace("\\", "/").startswith("./Assets/StreamingAssets"):
+            continue
         
+        path = pathlib.Path(pathName)
+        # if pathlib.Path("StreamingAssets") in path.parents:
+
         
         for fileName in fileNames:
             if not fileName.endswith(".py"):
@@ -29,7 +34,12 @@ def assemble_python_code_archive(rootDirectory: str, outputPath: str):
     
     # We'll construct inits in after all the real files are created:
     for pathName, dirs, fileNames in os.walk(rootDirectory):
+        # Skip StreamingAssets:
+        if pathName.replace("\\", "/").startswith("./Assets/StreamingAssets"):
+            continue
+        
         path = pathlib.Path(pathName)
+        
         has_py = False
         for fileName in fileNames:
             if fileName.endswith(".py"):
