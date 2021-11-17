@@ -50,7 +50,8 @@ sysinfo.txt
 crashlytics-build.properties
 
 /venv/
-/PythonRuntime/
+/vcpkg/
+/PythonInterpreters/
 /UserSettings/
 /.vscode/
 /pythonnet-user-assemblies.json

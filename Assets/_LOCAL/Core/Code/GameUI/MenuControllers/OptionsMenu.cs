@@ -30,15 +30,20 @@ namespace GameUI {
         public Selectable audioCategoryButton;
 
         [Header("Display Settings")]
+        public GameObject displayPanel;
         public TMP_Dropdown displaySelection;
         public TMP_Dropdown fullscreenSelection;
+
+        [Header("Audio Panel")]
+        public GameObject audioPanel;
 
         [Header("New Settings")]
         public Settings newSettings;
 
         // Runtime Values
-        private ExclusiveUI lastUI {get; set;}
+        private ExclusiveUI lastUI { get; set; }
         private bool requested = false;
+        private GameObject[] panels;
 
         public OptionsMenu() {
             Instance = this;
@@ -50,7 +55,7 @@ namespace GameUI {
             // foreach (Resolution res in Screen.resolutions) {
             for (int i = 0; i < Screen.resolutions.Length; i++) {
                 Resolution res = Screen.resolutions[i];
-            
+
                 TMP_Dropdown.OptionData entry = new TMP_Dropdown.OptionData(res.ToString());
                 displaySelection.options.Add(entry);
 
@@ -87,8 +92,9 @@ namespace GameUI {
             }
             fullscreenSelection.RefreshShownValue();
         }
+
         public void OnSelectFullscreen(int selection) {
-            newSettings.display.fullScreen = (FullScreenMode) fullscreenSelection.value;
+            newSettings.display.fullScreen = (FullScreenMode)fullscreenSelection.value;
         }
         #endregion
 
@@ -96,7 +102,7 @@ namespace GameUI {
             GlobalManager.Settings.settings.display = newSettings.display;
             GlobalManager.Settings.settings.display.Apply();
         }
-        
+
         // public void ApplyAudio() {
         //     settings.audio.Apply();
         // }
@@ -107,13 +113,17 @@ namespace GameUI {
                 gameObject.SetActive(false);
             }
         }
+
         void OnEnable() {
             StartCoroutine(DelayedEnableRoutine());
             newSettings = GlobalManager.Settings.settings;
-            
+
+            panels = new GameObject[] {displayPanel, audioPanel};
+
             ConstructResolutionMenu();
             ConstructFullscreenMenu();
         }
+        
         IEnumerator DelayedEnableRoutine() {
             yield return null;
             backButton.Select();

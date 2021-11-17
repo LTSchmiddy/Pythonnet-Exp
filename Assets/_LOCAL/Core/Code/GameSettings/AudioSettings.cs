@@ -14,7 +14,7 @@ namespace GameSettings {
             set { this.value = Mathf.Clamp01(value);}
         }
 
-        public Volume(float startVal) {
+        public Volume(float startVal = 1f) {
             value = Mathf.Clamp01(startVal);
         }
 

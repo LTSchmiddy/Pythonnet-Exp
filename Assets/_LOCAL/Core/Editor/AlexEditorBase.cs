@@ -106,9 +106,11 @@ public class AlexEditorBase<T> : Editor where T : UnityEngine.Object {
         params GUILayoutOption[] options
     ) {
         EditorGUILayout.BeginHorizontal(options);
-        if (AutoPropertyField(propertyName)) {
+        if (AutoPropertyField(propertyName, true, label)) {
             if (GUILayout.Button("Select Folder", GUILayout.MaxWidth(90f))) {
-                AutoProperty(propertyName).stringValue = EditorUtility.OpenFolderPanel(
+                var prop = AutoProperty(propertyName);
+
+                prop.stringValue = EditorUtility.OpenFolderPanel(
                     "Select " + (string.IsNullOrWhiteSpace(label.text) ? propertyName : label.text),
                     folder,
                     defaultName

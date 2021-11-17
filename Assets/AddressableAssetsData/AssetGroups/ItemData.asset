@@ -21,116 +21,78 @@ MonoBehaviour:
     m_Address: Assets/_LOCAL/Content/Main/ItemData/Items/CraftingBlueprint
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 1a9e9e31110eb364bb267c99ce3d1604
     m_Address: Assets/_LOCAL/Content/Main/ItemData/Items/StatDefinition
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: fc08524dab9a3d0418fdd51ffafa7e91
     m_Address: Assets/_LOCAL/Content/Main/ItemData/Items/Settings
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: d704c0eb428bf45439281ac7df18c69f
     m_Address: Assets/_LOCAL/Content/Main/ItemData/Items/CurrencyDefinition
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: d135c525b2200d54bae23eca2acde9d0
     m_Address: Assets/_LOCAL/Content/Main/ItemData/Items
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: b43275de901b943499682e1073309074
     m_Address: Assets/_LOCAL/Content/Main/ItemData
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: b1e6ac3865282e3409717fbe2531e984
     m_Address: Assets/_LOCAL/Content/Main/ItemData/Items/Items
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 8a76a255185af6b428d2925c6f64416e
     m_Address: Assets/_LOCAL/Content/Main/ItemData/Items/CraftingCategory
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 73f2044420d79d64a93cf93ceaa55f34
     m_Address: Assets/_LOCAL/Content/Main/ItemData/Items/ItemCategory
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 3d76ffe6f8d0d984ba2720e00be4b578
     m_Address: Assets/_LOCAL/Content/Main/ItemData/Items/ItemRarity
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 86b6cb7b8bd6de446af43f368ae4c46d
     m_Address: Assets/_LOCAL/Content/Main/ItemData/Items/EquipmentType
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 1f310211f5feb5243bc76f7c15dc157f
     m_Address: Assets/_LOCAL/Content/Main/ItemData/LangDatabase.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: e87be1c35f1d781469a9e75aa515fe08
     m_Address: Assets/_LOCAL/Content/Main/ItemData/enUS.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 871d69b544aa8724bbb2edf56c530bcf
     m_Address: Assets/_LOCAL/Content/Main/ItemData/InventorySettings.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: ae2e5aa8d267b694a9ed72b868c22879
     m_Address: Assets/_LOCAL/Content/Main/ItemData/ItemDatabase.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 9a9eb4593b8176b4e890a689a925e795
     m_Address: Assets/_LOCAL/Content/Main/ItemData/BasicCollectionSorter.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 81c8b40b4797a81459b2eeb131fdb0ad
     m_Address: Assets/_LOCAL/Content/Main/ItemData/Items/Items/Item__#0_ItemDatabase_PFB.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 0edbbdec6dbfaae43ad38a751a5a368b
     m_Address: Assets/_LOCAL/Content/Main/ItemData/ItemDropHandler.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: f48ddc2de3970fa4095b70b7f831454b
     m_Address: Assets/_LOCAL/Content/Main/ItemData/GeneralSettings.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8a60ccc85b46dcc4280c60b1d2589311, type: 2}
   m_SchemaSet:

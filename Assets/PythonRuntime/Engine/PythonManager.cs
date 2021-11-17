@@ -15,7 +15,7 @@ namespace PythonEngine {
     public static class PythonManager {
 
         public const string PYTHON_SCRIPT_BUNDLE_DIRECTORY = "ScriptBundles";
-        public const string PYTHON_RUNTIME_DIRECTORY = "./PythonRuntime/";
+        public const string PYTHON_RUNTIME_DIRECTORY = "./PythonInterpreters/";
 
 
         private static PyScope scope;
@@ -39,7 +39,11 @@ namespace PythonEngine {
         public static PyObject PickleModule { get => pickleModule; private set => pickleModule = value; }
         public static dynamic UnityPy { get => unityPy; private set => unityPy = value; }
         public static string GetPythonHome() {
-            return PYTHON_RUNTIME_DIRECTORY + "python-3.9.4-embed-amd64";
+            #if UNITY_EDITOR
+                return PYTHON_RUNTIME_DIRECTORY + "python-3.9.4-embed-amd64";
+            #else
+                return "./PythonRuntime";
+            #endif
         }
 
         public static string GetPythonScriptBundleDirectory() {
@@ -52,6 +56,9 @@ namespace PythonEngine {
             }
 
             Python.Runtime.PythonEngine.PythonHome = GetPythonHome();
+
+            Debug.Log(Python.Runtime.PythonEngine.PythonHome);
+
             Python.Runtime.PythonEngine.Initialize();
             Scope = Py.CreateScope();
             ConfigureSys();
@@ -68,8 +75,8 @@ namespace PythonEngine {
 
                 sys.path.clear();
                 sys.path.append(GetPythonHome());
-                sys.path.append(GetPythonHome() + "/lib");
-                sys.path.append(GetPythonHome() + "/lib/site-packages");
+                sys.path.append(GetPythonHome() + "/Lib");
+                sys.path.append(GetPythonHome() + "/Lib/site-packages");
                 sys.path.append(GetPythonHome() + "/DLLs");
 
                 sys.path.append(Application.streamingAssetsPath + "/PythonScripts_Internal");
@@ -83,7 +90,6 @@ namespace PythonEngine {
 #if UNITY_EDITOR
                 dynamic sys = Scope.Import("sys");
                 sys.path.append(Application.dataPath);
-                // UnityPy.load_script_bundles(GetPythonScriptBundleDirectory());
 #else
                 UnityPy.load_script_bundles(GetPythonScriptBundleDirectory());
 #endif

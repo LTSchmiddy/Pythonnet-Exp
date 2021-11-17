@@ -90,7 +90,7 @@ namespace AlexEditorUtilities.ProjectBuilder {
         }
 
         public void CopyPythonRuntimeToBuild() {
-            PythonEditorUtilities.DirectoryCopy("./PythonRuntime", buildOutputDir + "/PythonRuntime", true);
+            PythonEditorUtilities.DirectoryCopy(PythonManager.GetPythonHome(), buildOutputDir + "/PythonRuntime", true);
         }
 
         public void PythonCodeArchiveForBuild() {
@@ -185,16 +185,22 @@ namespace AlexEditorUtilities.ProjectBuilder {
 
         public void PythonBuildInfo() {
             Header("Python Runtime: ");
-            OpenFolderPathAutoPropertyField("pythonRuntimeDir", PythonManager.PYTHON_RUNTIME_DIRECTORY, "");
+            OpenFolderPathAutoPropertyField(
+                "pythonRuntimeDir",
+                PythonManager.PYTHON_RUNTIME_DIRECTORY, 
+                Path.GetFullPath(PythonManager.GetPythonHome()), 
+                new GUIContent("Python Runtime Directory")
+            );
             AutoPropertyField("mainPythonCodeArchiveName");
 
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Copy Runtime to Build")) {
-                Target.CopyPythonRuntimeToBuild();
-            }
             if (GUILayout.Button("Build Python Code Archive")) {
                 Target.PythonCodeArchiveForBuild();
             }
+            if (GUILayout.Button("Copy Runtime to Build")) {
+                Target.CopyPythonRuntimeToBuild();
+            }
+
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space(10);
         }
