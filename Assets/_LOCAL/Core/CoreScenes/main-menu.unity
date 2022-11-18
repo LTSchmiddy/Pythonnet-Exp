@@ -1022,9 +1022,15 @@ MonoBehaviour:
   m_OnClickPy:
     importCode: 'from UnityEngine import *
 
-      from UnityEngine.UI import *'
-    eventCode: print("New Game")
-    objectRefs: []
+      from UnityEngine.UI import *
+
+      from
+      GameUniverse import GlobalManager'
+    eventCode: 'GlobalManager.Instance.mainMenuScene.UnloadAsync()
+
+      GlobalManager.LoadNewGame()'
+    objectRefs:
+    - {fileID: 964031912}
 --- !u!114 &1262381219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1276,7 +1282,9 @@ MonoBehaviour:
     importCode: 'from UnityEngine import *
 
       from UnityEngine.UI import *'
-    eventCode: print("Quit")
+    eventCode: 'print("Quit")
+
+      Application.Quit()'
     objectRefs: []
 --- !u!114 &1924265658
 MonoBehaviour:

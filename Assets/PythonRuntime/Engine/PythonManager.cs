@@ -56,9 +56,6 @@ namespace PythonEngine {
             }
 
             Python.Runtime.PythonEngine.PythonHome = GetPythonHome();
-
-            Debug.Log(Python.Runtime.PythonEngine.PythonHome);
-
             Python.Runtime.PythonEngine.Initialize();
             Scope = Py.CreateScope();
             ConfigureSys();

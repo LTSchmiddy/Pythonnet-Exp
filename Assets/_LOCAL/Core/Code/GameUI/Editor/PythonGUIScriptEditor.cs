@@ -8,7 +8,7 @@ using GameUI;
 
 namespace GameUIEditor {
     [CustomEditor(typeof(PythonGUIScript), true)]
-    public class PythonGUIScriptEditor : AlexEditorBase<GlobalManager> {
+    public class PythonGUIScriptEditor : AlexEditorBase<PythonGUIScript> {
         
     }
 }

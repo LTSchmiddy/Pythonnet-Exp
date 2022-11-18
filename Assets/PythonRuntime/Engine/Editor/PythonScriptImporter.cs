@@ -11,11 +11,11 @@ using Python.Runtime;
 using PythonEngine;
 
 namespace PythonEngineEditor {
-    [ScriptedImporter(version: 20, ext: "py")]
+    [ScriptedImporter(version: 27, ext: "py")]
     public class PythonScriptImporter : ScriptedImporter {
         public override void OnImportAsset(AssetImportContext ctx) {
             if(!ctx.assetPath.StartsWith("Assets/")){
-                Debug.Log("PyScript '" + ctx.assetPath + "' Not in Assets Folder...");
+                Debug.Log("PyScript '" + ctx.assetPath + "' not in Assets Folder...");
                 return;
             }
 
@@ -37,14 +37,15 @@ namespace PythonEngineEditor {
             ctx.AddObjectToAsset("module", module);
             ctx.SetMainObject(module);
 
-            script.name = "(Script Info) " + moduleName;
+            script.name = moduleName + " (Script Info)";
+            script.moduleObject = module;
             ctx.AddObjectToAsset("script", script);
 
             module.classes = new List<PythonClassObject>(script.definedClassNames.Count);
             // Creating Class Objects:
             foreach (string i in script.definedClassNames){
                 PythonClassObject classObj = PythonClassObject.EditorNew(script, i);
-                classObj.name = i;
+                classObj.name = i + " (Class)";
                 ctx.AddObjectToAsset(classObj.name, classObj);
                 module.classes.Add(classObj);
             }
@@ -53,7 +54,7 @@ namespace PythonEngineEditor {
             module.functions = new List<PythonFunctionObject>(script.definedFunctionNames.Count);
             foreach (string i in script.definedFunctionNames){
                 PythonFunctionObject fnObj = PythonFunctionObject.EditorNew(script, i);
-                fnObj.name = i;
+                fnObj.name = i + " (Function)";
                 ctx.AddObjectToAsset(fnObj.name, fnObj);
                 module.functions.Add(fnObj);
             }

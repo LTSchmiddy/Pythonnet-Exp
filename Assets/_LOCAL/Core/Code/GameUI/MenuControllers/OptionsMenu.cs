@@ -24,7 +24,12 @@ namespace GameUI {
         }
         #endregion
 
-        [Header("Category Selection")]
+        public enum SettingsPanel {
+            Display = 0, 
+            Audio = 1
+        }
+
+        [Header("Category Selection Buttons")]
         public Selectable backButton;
         public Selectable displayCategoryButton;
         public Selectable audioCategoryButton;
@@ -36,20 +41,96 @@ namespace GameUI {
 
         [Header("Audio Panel")]
         public GameObject audioPanel;
+        public Slider masterVolSlider;
+        public Slider musicVolSlider;
+        public Slider guiVolSlider;
+        public Slider sfxVolSlider;
+        public Slider environVolSlider;
 
         [Header("New Settings")]
         public Settings newSettings;
 
         // Runtime Values
-        private ExclusiveUI lastUI { get; set; }
-        private bool requested = false;
-        private GameObject[] panels;
+        private ExclusiveUI _lastUI { get; set; }
+        private bool _requested = false;
+        private GameObject[] _allPanels;
+        private SettingsPanel _currentPanelId = SettingsPanel.Display;
 
+        public GameObject[] AllPanels {
+            get {
+                if (_allPanels == null || _allPanels.Length < 1) {
+                    _allPanels = new GameObject[] {displayPanel, audioPanel};
+                    // _allPanels = new GameObject[] {audioPanel, displayPanel};
+                }
+
+                return _allPanels;
+            }
+        }
+
+        public SettingsPanel CurrentPanelId {
+            get {
+                return _currentPanelId;
+            }
+            set {
+                SetCurrentPanel(value);
+            }
+        }
         public OptionsMenu() {
             Instance = this;
         }
 
-        #region Resolution Selection
+
+        void Start() {
+            SetAudioSliders();
+            if (!_requested) {
+                gameObject.SetActive(false);
+            }
+        }
+
+        void OnEnable() {
+            StartCoroutine(DelayedEnableRoutine());
+            newSettings = GlobalManager.Settings.settings;
+
+            ConstructResolutionMenu();
+            ConstructFullscreenMenu();
+        }
+        
+        IEnumerator DelayedEnableRoutine() {
+            yield return null;
+            backButton.Select();
+            
+            CurrentPanelId = SettingsPanel.Display;
+
+        }
+        protected override void SetOpen(bool state) {
+            // If we're opening the options menu, let's check to see what the
+            // current UI open is, so that we can reopen it once we're done.
+            if (state) {
+                _lastUI = CurrentUI;
+            }
+            base.SetOpen(state);
+            if (state) {
+                _requested = true;
+            } else {
+                // If we're leaving the options menu, re-open the last UI.
+                if (_lastUI != null) {
+                    _lastUI.IsOpen = true;
+                }
+            }
+        }
+
+        public void SetCurrentPanel(int panelId) {
+            SetCurrentPanel((SettingsPanel)panelId);
+        }
+        public void SetCurrentPanel(SettingsPanel panelId) {
+            for (int i = 0; i < AllPanels.Length; i++ ) {
+                AllPanels[i].SetActive(i ==(int)panelId);
+            }
+
+            _currentPanelId = panelId;
+        }
+
+        #region Display Settings Methods
         protected void ConstructResolutionMenu() {
             displaySelection.options.Clear();
             // foreach (Resolution res in Screen.resolutions) {
@@ -76,9 +157,8 @@ namespace GameUI {
             newSettings.display.width = res.width;
             newSettings.display.refreshRate = res.refreshRate;
         }
-        #endregion
 
-        #region Fullscreen Selection
+
         protected void ConstructFullscreenMenu() {
             fullscreenSelection.options.Clear();
             foreach (FullScreenMode fs in Enum.GetValues(typeof(FullScreenMode))) {
@@ -96,53 +176,41 @@ namespace GameUI {
         public void OnSelectFullscreen(int selection) {
             newSettings.display.fullScreen = (FullScreenMode)fullscreenSelection.value;
         }
-        #endregion
-
         public void ApplyDisplay() {
             GlobalManager.Settings.settings.display = newSettings.display;
             GlobalManager.Settings.settings.display.Apply();
         }
+        #endregion
 
-        // public void ApplyAudio() {
-        //     settings.audio.Apply();
-        // }
+        #region Audio Settings Methods
 
+        public void SetAudioSliders() {
+            masterVolSlider.value = newSettings.audio.masterVolume;
+            masterVolSlider.onValueChanged.AddListener((float value) => {
+                newSettings.audio.masterVolume = value;
+            });
 
-        void Start() {
-            if (!requested) {
-                gameObject.SetActive(false);
-            }
-        }
+            musicVolSlider.value = newSettings.audio.musicVolume;
+            musicVolSlider.onValueChanged.AddListener((float value) => {
+                newSettings.audio.musicVolume = value;
+            });
 
-        void OnEnable() {
-            StartCoroutine(DelayedEnableRoutine());
-            newSettings = GlobalManager.Settings.settings;
+            guiVolSlider.value = newSettings.audio.guiVolume;
+            guiVolSlider.onValueChanged.AddListener((float value) => {
+                newSettings.audio.guiVolume = value;
+            });
 
-            panels = new GameObject[] {displayPanel, audioPanel};
+            sfxVolSlider.value = newSettings.audio.sfxVolume;
+            sfxVolSlider.onValueChanged.AddListener((float value) => {
+                newSettings.audio.sfxVolume = value;
+            });
 
-            ConstructResolutionMenu();
-            ConstructFullscreenMenu();
+            environVolSlider.value = newSettings.audio.environVolume;
+            environVolSlider.onValueChanged.AddListener((float value) => {
+                newSettings.audio.environVolume = value;
+            });
         }
         
-        IEnumerator DelayedEnableRoutine() {
-            yield return null;
-            backButton.Select();
-        }
-        protected override void SetOpen(bool state) {
-            // If we're opening the options menu, let's check to see what the
-            // current UI open is, so that we can reopen it once we're done.
-            if (state) {
-                lastUI = CurrentUI;
-            }
-            base.SetOpen(state);
-            if (state) {
-                requested = true;
-            } else {
-                // If we're leaving the options menu, re-open the last UI.
-                if (lastUI != null) {
-                    lastUI.IsOpen = true;
-                }
-            }
-        }
+        #endregion
     }
 }

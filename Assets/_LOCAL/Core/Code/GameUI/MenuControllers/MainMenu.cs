@@ -17,7 +17,6 @@ namespace GameUI {
             Instance.IsOpen = false;
         }
 
-
         public Selectable NewGameButton;
         public Selectable LoadGameButton;
         public Selectable OptionsButton;

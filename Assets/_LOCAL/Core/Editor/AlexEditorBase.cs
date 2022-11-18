@@ -106,7 +106,7 @@ public class AlexEditorBase<T> : Editor where T : UnityEngine.Object {
         params GUILayoutOption[] options
     ) {
         EditorGUILayout.BeginHorizontal(options);
-        if (AutoPropertyField(propertyName, true, label)) {
+        if (AutoPropertyField(propertyName, false, label)) {
             if (GUILayout.Button("Select Folder", GUILayout.MaxWidth(90f))) {
                 var prop = AutoProperty(propertyName);
 

@@ -13,30 +13,19 @@ using PythonEngine;
 using Python.Runtime;
 
 namespace GameUI {
-    // public class PythonButton : Selectable, IPointerClickHandler, ISubmitHandler {
-    //     public PythonEvent m_OnClickPy;
-    // }
-
     /// <summary>
     /// A standard button that sends an event when clicked.
     /// </summary>
     [AddComponentMenu("UI/Python Button", 40)]
-    public class PythonButton : Selectable, IPointerClickHandler, ISubmitHandler
-    {
-        // [Serializable]
-        // /// <summary>
-        // /// Function definition for a button click event.
-        // /// </summary>
-
-
+    public class PythonButton : Selectable, IPointerClickHandler, ISubmitHandler {
         // Event delegates triggered on click.
         [SerializeField]
         private PythonEvent m_OnClickPy = new PythonEvent(
             p_ImportCode: "from UnityEngine import *\nfrom UnityEngine.UI import *\nfrom GameUI import *"
         );
 
-        protected PythonButton()
-        {}
+
+        protected PythonButton() { }
 
         protected override void Start() {
             base.Start();
@@ -48,14 +37,12 @@ namespace GameUI {
         /// PythonEvent that is triggered when the button is pressed.
         /// Note: Triggered on MouseUp after MouseDown on the same object.
         /// </summary>
-        public PythonEvent onClick
-        {
+        public PythonEvent onClick {
             get { return m_OnClickPy; }
             set { m_OnClickPy = value; }
         }
 
-        private void Press()
-        {
+        private void Press() {
             if (!IsActive() || !IsInteractable())
                 return;
 
@@ -97,8 +84,7 @@ namespace GameUI {
         /// </code>
         /// </example>
 
-        public virtual void OnPointerClick(PointerEventData eventData)
-        {
+        public virtual void OnPointerClick(PointerEventData eventData) {
             if (eventData.button != PointerEventData.InputButton.Left)
                 return;
 
@@ -141,8 +127,7 @@ namespace GameUI {
             DoStateTransition(SelectionState.Selected, false);
         }
 
-        public virtual void OnSubmit(BaseEventData eventData)
-        {
+        public virtual void OnSubmit(BaseEventData eventData) {
             Press();
 
             // if we get set disabled during the press
@@ -154,13 +139,11 @@ namespace GameUI {
             StartCoroutine(OnFinishSubmit());
         }
 
-        private IEnumerator OnFinishSubmit()
-        {
+        private IEnumerator OnFinishSubmit() {
             var fadeTime = colors.fadeDuration;
             var elapsedTime = 0f;
 
-            while (elapsedTime < fadeTime)
-            {
+            while (elapsedTime < fadeTime) {
                 elapsedTime += Time.unscaledDeltaTime;
                 yield return null;
             }

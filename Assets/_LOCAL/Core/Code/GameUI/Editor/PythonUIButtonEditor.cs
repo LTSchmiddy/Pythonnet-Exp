@@ -11,6 +11,7 @@ namespace GameUIEditor {
     [CustomEditor(typeof(PythonButton), true)]
     // public class PythonUIButtonEditor : AlexEditorBase<PythonUIButton> {
     public class PythonUIButtonEditor : SelectableEditor {
+
         SerializedProperty m_OnClickPyProperty;
 
         protected override void OnEnable()
